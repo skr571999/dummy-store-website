@@ -1,3 +1,3 @@
-import LoginPage from "./login.view";
+import LoginPage from "./login.container";
 
 export default LoginPage;
