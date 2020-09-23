@@ -24,12 +24,16 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface PasswordFieldViewProps {
+    label?: string;
+    prop?: string;
     password: any;
     handleChange: any;
     error?: any;
 }
 
 const PasswordFieldView: React.FC<PasswordFieldViewProps> = ({
+    label = "Password",
+    prop = "password",
     password,
     handleChange,
     error,
@@ -53,13 +57,13 @@ const PasswordFieldView: React.FC<PasswordFieldViewProps> = ({
             variant="outlined"
         >
             <InputLabel htmlFor="outlined-adornment-password" required>
-                Password
+                {label}
             </InputLabel>
             <OutlinedInput
-                id="outlined-adornment-password"
+                id={"outlined-adornment-password" + label}
                 type={showPassword ? "text" : "password"}
                 value={password}
-                onChange={handleChange("password")}
+                onChange={handleChange(prop)}
                 required
                 error={error}
                 endAdornment={
@@ -74,7 +78,7 @@ const PasswordFieldView: React.FC<PasswordFieldViewProps> = ({
                         </IconButton>
                     </InputAdornment>
                 }
-                labelWidth={85}
+                labelWidth={label.length * 10}
             />
             <FormHelperText>{error ? "Error" : ""}</FormHelperText>
         </FormControl>

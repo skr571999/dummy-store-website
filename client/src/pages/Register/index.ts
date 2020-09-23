@@ -1,3 +1,3 @@
-import RegisterPage from "./register.view";
+import RegisterPage from "./register.container";
 
 export default RegisterPage;
