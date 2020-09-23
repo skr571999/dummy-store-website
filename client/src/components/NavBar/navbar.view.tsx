@@ -1,4 +1,5 @@
 import React from "react";
+
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -29,7 +30,7 @@ const NavBar = () => {
 
     return (
         <div className={classes.root}>
-            <AppBar position="fixed" color="primary" style={{ height: "7vh" }}>
+            <AppBar position="fixed" color="primary">
                 <Toolbar>
                     {/* <IconButton
                         edge="start"
