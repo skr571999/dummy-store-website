@@ -1,6 +1,6 @@
-# AppleiStore
+# istore
 
-Apple Store Clone with some refinement. Developed using React, NodeJS(Express), MongoDB, TypeScript.
+A MERN app where user can look through the products that are available and admin can add the new products.
 
 ## Technologies and Tools
 
@@ -9,9 +9,9 @@ Apple Store Clone with some refinement. Developed using React, NodeJS(Express), 
   - Prettier - for code formatting
 - Development OS - Window 10
 - Frontend - React
+  - Language - Typescript
   - Package manager - npm
   - Style - Material UI
-  - Language - Typescript
 - Backend - NodeJS(ExpressJS)
   - Language - Typescript
   - DataBase - MongoDB
@@ -19,7 +19,7 @@ Apple Store Clone with some refinement. Developed using React, NodeJS(Express), 
 ## Usage
 
 ```cmd
-git clone https://github.com/skr571999/AppleiStore.git
+git clone https://github.com/skr571999/istore.git
 
 cd client
 npm install
