@@ -1,61 +1,109 @@
 import React from "react";
 
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
-import AppleIcon from "@material-ui/icons/Apple";
-
 import { Link as RouterLink } from "react-router-dom";
+import {
+    Drawer,
+    Hidden,
+    List,
+    ListItem,
+    ListItemText,
+    AppBar,
+    Toolbar,
+    Typography,
+    Button,
+    IconButton,
+} from "@material-ui/core";
+
+import MenuIcon from "@material-ui/icons/Menu";
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        root: {
+        appBar: {
+            zIndex: theme.zIndex.drawer + 1,
+        },
+        title: {
             flexGrow: 1,
         },
         menuButton: {
             marginRight: theme.spacing(2),
         },
-        title: {
-            flexGrow: 1,
+        list: {
+            width: "auto",
         },
     })
 );
 
 const NavBar = () => {
     const classes = useStyles();
+    const [open, setOpen] = React.useState(false);
+
+    const handleDrawer = () => {
+        setOpen(!open);
+    };
 
     return (
-        <div className={classes.root}>
-            <AppBar position="fixed" color="primary">
+        <>
+            <AppBar position="fixed" color="primary" className={classes.appBar}>
                 <Toolbar>
-                    <IconButton
-                        edge="start"
-                        className={classes.menuButton}
-                        color="inherit"
-                        aria-label="menu"
-                    >
-                        <MenuIcon />
-                    </IconButton>
-                    <Typography variant="h6" className={classes.title}>
-                        <AppleIcon /> iStore
+                    <Hidden mdUp>
+                        <IconButton
+                            edge="start"
+                            className={classes.menuButton}
+                            onClick={handleDrawer}
+                            color="inherit"
+                            aria-label="menu"
+                        >
+                            <MenuIcon />
+                        </IconButton>
+                    </Hidden>
+                    <Typography variant="h6" noWrap className={classes.title}>
+                        iStore
                     </Typography>
-                    <Button component={RouterLink} to="/login" color="inherit">
-                        Login
-                    </Button>
-                    <Button
-                        component={RouterLink}
-                        to="/register"
-                        color="inherit"
-                    >
-                        Register
-                    </Button>
+                    <Hidden smDown>
+                        <Button component={RouterLink} to="/" color="inherit">
+                            Home
+                        </Button>
+                        <Button
+                            component={RouterLink}
+                            to="/login"
+                            color="inherit"
+                        >
+                            Login
+                        </Button>
+                        <Button
+                            component={RouterLink}
+                            to="/register"
+                            color="inherit"
+                        >
+                            Register
+                        </Button>
+                    </Hidden>
                 </Toolbar>
             </AppBar>
-        </div>
+            <Hidden mdUp>
+                <Drawer variant={"persistent"} anchor="top" open={open}>
+                    <Toolbar />
+                    <div className={classes.list} role="presentation">
+                        <List>
+                            {["Home", "Login", "Register"].map(
+                                (text, index) => (
+                                    <ListItem
+                                        button
+                                        key={text}
+                                        component={RouterLink}
+                                        to={"/" + text.toLowerCase()}
+                                        onClick={handleDrawer}
+                                    >
+                                        <ListItemText primary={text} />
+                                    </ListItem>
+                                )
+                            )}
+                        </List>
+                    </div>
+                </Drawer>
+            </Hidden>
+        </>
     );
 };
 
