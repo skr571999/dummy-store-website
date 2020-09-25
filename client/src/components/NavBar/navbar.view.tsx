@@ -16,6 +16,7 @@ import {
 
 import MenuIcon from "@material-ui/icons/Menu";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import { FRONTEND_ENDPOINTS } from "../../constants";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -61,44 +62,34 @@ const NavBar = () => {
                         iStore
                     </Typography>
                     <Hidden smDown>
-                        <Button component={RouterLink} to="/" color="inherit">
-                            Home
-                        </Button>
-                        <Button
-                            component={RouterLink}
-                            to="/login"
-                            color="inherit"
-                        >
-                            Login
-                        </Button>
-                        <Button
-                            component={RouterLink}
-                            to="/register"
-                            color="inherit"
-                        >
-                            Register
-                        </Button>
+                        {FRONTEND_ENDPOINTS.map((val, index) => (
+                            <Button
+                                key={val.link}
+                                component={RouterLink}
+                                to={val.link}
+                                color="inherit"
+                            >
+                                {val.name}
+                            </Button>
+                        ))}
                     </Hidden>
                 </Toolbar>
             </AppBar>
             <Hidden mdUp>
                 <Drawer variant={"persistent"} anchor="top" open={open}>
-                    <Toolbar />
                     <div className={classes.list} role="presentation">
                         <List>
-                            {["Home", "Login", "Register"].map(
-                                (text, index) => (
-                                    <ListItem
-                                        button
-                                        key={text}
-                                        component={RouterLink}
-                                        to={"/" + text.toLowerCase()}
-                                        onClick={handleDrawer}
-                                    >
-                                        <ListItemText primary={text} />
-                                    </ListItem>
-                                )
-                            )}
+                            {FRONTEND_ENDPOINTS.map((val, index) => (
+                                <ListItem
+                                    button
+                                    key={val.link}
+                                    component={RouterLink}
+                                    to={val.link}
+                                    onClick={handleDrawer}
+                                >
+                                    <ListItemText primary={val.name} />
+                                </ListItem>
+                            ))}
                         </List>
                     </div>
                 </Drawer>
