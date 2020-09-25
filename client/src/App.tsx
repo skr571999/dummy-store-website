@@ -5,7 +5,6 @@ import { createMuiTheme } from "@material-ui/core/styles";
 import { Box, CssBaseline, ThemeProvider } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 
-import "./App.css";
 import Routes from "./Routes";
 import NavBar from "./components/NavBar";
 
