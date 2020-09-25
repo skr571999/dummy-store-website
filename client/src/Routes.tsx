@@ -4,6 +4,7 @@ import { Switch, Route } from "react-router-dom";
 
 import HomePage from "./pages/Home";
 import LoginPage from "./pages/Login";
+import ProductDetailPage from "./pages/ProductDetail";
 import ProductListPage from "./pages/ProductList";
 import ProfilePage from "./pages/Profile";
 import RegisterPage from "./pages/Register";
@@ -17,6 +18,11 @@ const Routes = () => {
             <Route path="/register" exact component={RegisterPage} />
             <Route path="/profile" exact component={ProfilePage} />
             <Route path="/productlist" exact component={ProductListPage} />
+            <Route
+                path="/product/:productID"
+                exact
+                component={ProductDetailPage}
+            />
         </Switch>
     );
 };
