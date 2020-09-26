@@ -1,4 +1,4 @@
-# istore
+# iStore
 
 A MERN app where user can look through the products that are available and admin can add the new products.
 
@@ -6,7 +6,10 @@ A MERN app where user can look through the products that are available and admin
 
 - TextEditor - Visual Studio Code
 - VSCode Extensions
-  - Prettier - for code formatting
+  - [Prettier - Code formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+  - [Material Icon Theme](https://marketplace.visualstudio.com/items?itemName=PKief.material-icon-theme)
+  - [Atom One Dark Theme](https://marketplace.visualstudio.com/items?itemName=akamud.vscode-theme-onedark)
+  - [ES7 React/Redux/GraphQL/React-Native snippets](https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snippets)
 - Development OS - Window 10
 - Frontend - React
   - Language - Typescript
@@ -19,7 +22,7 @@ A MERN app where user can look through the products that are available and admin
 ## Usage
 
 ```cmd
-git clone https://github.com/skr571999/istore.git
+git clone https://github.com/skr571999/iStore.git
 
 cd client
 npm install
