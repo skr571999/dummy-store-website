@@ -45,7 +45,7 @@ export const DETAILED_PRODUCT_LIST = [
         id: 1002,
         name: "iPhone X Max Ultra",
         brand: "Apple",
-        price: "150000",
+        price: "100000",
         storage: {
             value: 256,
             unit: "GB",
