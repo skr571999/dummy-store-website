@@ -1,5 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
+import cors from "cors";
 
 import UserRoutes from "./user/routes";
 
@@ -26,6 +27,7 @@ const connectDB = async () => {
 connectDB();
 
 app.use(express.json());
+app.use(cors());
 
 app.get("/", (req, res) => res.send("Express + TypeScript Server"));
 app.use("/user", UserRoutes);
