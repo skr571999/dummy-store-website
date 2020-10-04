@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { BrowserRouter as Router } from "react-router-dom";
 import { createMuiTheme } from "@material-ui/core/styles";
@@ -7,6 +7,7 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 
 import Routes from "./Routes";
 import NavBar from "./components/NavBar";
+import { connectServer } from "./services/apis";
 
 const theme = createMuiTheme({
     palette: {
@@ -45,6 +46,15 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const App = () => {
     const classes = useStyles();
+
+    useEffect(() => {
+        (async () => {
+            try {
+                const response = await connectServer();
+                console.log(response);
+            } catch (error) {}
+        })();
+    }, [connectServer]);
 
     return (
         <ThemeProvider theme={theme}>
