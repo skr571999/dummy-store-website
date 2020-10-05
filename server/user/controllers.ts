@@ -17,6 +17,8 @@ export const RegisterController = async (req: Request, res: Response) => {
 
             res.send({ message: "Registration successful" });
         } catch (error) {
+            console.log("Error : ", error);
+
             res.send({ error: "Error Occured" });
         }
     })();
