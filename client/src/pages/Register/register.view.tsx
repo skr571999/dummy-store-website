@@ -16,6 +16,7 @@ import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 
 import PasswordField from "../../components/PasswordField";
 import GenderField from "../../components/GenderField";
+import { RegisterValues } from "../../types";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -42,8 +43,8 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface RegisterViewProps {
+    registerValues: RegisterValues;
     handleChange: any;
-    registerValues: any;
     handleRegister: any;
 }
 
@@ -71,6 +72,7 @@ const RegisterView: React.FC<RegisterViewProps> = ({
                                     label="Full Name"
                                     variant="outlined"
                                     className={classes.w100}
+                                    value={registerValues.fullName}
                                     onChange={handleChange("fullName")}
                                     required
                                 />
@@ -82,6 +84,7 @@ const RegisterView: React.FC<RegisterViewProps> = ({
                                     label="Email ID"
                                     variant="outlined"
                                     className={classes.w100}
+                                    value={registerValues.emailId}
                                     onChange={handleChange("emailId")}
                                     required
                                 />
@@ -93,6 +96,7 @@ const RegisterView: React.FC<RegisterViewProps> = ({
                                     label="Unique Store ID"
                                     variant="outlined"
                                     className={classes.w100}
+                                    value={registerValues.storeId}
                                     onChange={handleChange("storeID")}
                                     required
                                 />
@@ -104,6 +108,7 @@ const RegisterView: React.FC<RegisterViewProps> = ({
                                     label="Mobile No."
                                     variant="outlined"
                                     className={classes.w100}
+                                    value={registerValues.mobileNo}
                                     onChange={handleChange("mobileNo")}
                                     required
                                 />
@@ -122,6 +127,7 @@ const RegisterView: React.FC<RegisterViewProps> = ({
                                     label="City"
                                     variant="outlined"
                                     className={classes.w100}
+                                    value={registerValues.city}
                                     onChange={handleChange("city")}
                                     required
                                 />
@@ -133,6 +139,7 @@ const RegisterView: React.FC<RegisterViewProps> = ({
                                     label="Country"
                                     variant="outlined"
                                     className={classes.w100}
+                                    value={registerValues.country}
                                     onChange={handleChange("country")}
                                     required
                                 />
