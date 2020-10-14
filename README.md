@@ -14,23 +14,69 @@ A MERN app where user can look through the products that are available and admin
 - Frontend - React
   - Language - Typescript
   - Package manager - npm
-  - Style - Material UI
+  - Design System - Material UI
 - Backend - NodeJS(ExpressJS)
   - Language - Typescript
   - DataBase - MongoDB
 
 ## Usage
 
-```cmd
+- Cloning and Installing(For first time)
+
+```sh
 git clone https://github.com/skr571999/iStore.git
 
 cd client
 npm install
-npm start
 
 cd server
 npm install
-npm start
 ```
+
+- Starting the development Server
+
+```sh
+# To Start the Frontend Server
+cd client && start npm start
+cd ..
+
+# To Start MongoDb Server
+C:
+start mongod
+D:
+
+# To Start the Backend Server
+cd server && start npm start
+cd ..
+```
+
+## Development Info
+
+### Phase - I
+
+- Customer Pages
+
+  - Product List
+    - Fitler
+    - Products
+  - Product Detail
+  - Home Page
+    - Carousel
+    - Product Seprated by Category
+
+- Admin(Seller) Pages
+  - Add New Product
+
+### Phase - II
+
+- Customer Pages
+
+  - Login
+  - Register
+  - Profile
+    - Profile Edit
+
+- Admin(Seller) Pages
+  - UserList
 
 <!-- ## Preview Screens -->
