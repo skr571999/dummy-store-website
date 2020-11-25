@@ -1,67 +1,85 @@
 import { Request, Response } from "express";
 import { sign } from "jsonwebtoken";
+import { validationResult } from "express-validator";
 
 import { User as UserModal } from "./modals";
 import { MyRequest, MyResponse } from "../types";
-
-const JWT_SECRET = process.env.JWT_SECRET || "secret";
+import { JWT_SECRET } from "../constants";
 
 export const RegisterController = async (req: Request, res: Response) => {
-    (async () => {
-        try {
-            const registerData = req.body;
-            console.log(registerData);
+  try {
+    const errors = validationResult(req);
 
-            const userData = await UserModal.create(registerData);
-            console.log(userData);
+    if (!errors.isEmpty()) {
+      return res
+        .status(400)
+        .json({ errors: errors.array(), message: "Registration Failed" });
+    }
 
-            res.send({ message: "Registration successful" });
-        } catch (error) {
-            console.log("Error : ", error);
+    const isEmailRegistered =
+      (await UserModal.find({ email: req.body.email })).length > 0;
 
-            res.send({ error: "Error Occured" });
-        }
-    })();
+    if (!isEmailRegistered) {
+      const registeredUser = (await UserModal.create(req.body)).toJSON();
+
+      delete registeredUser.__v;
+      delete registeredUser.createdAt;
+      delete registeredUser.updatedAt;
+      delete registeredUser.password;
+
+      res.send({ message: "Registration successful", data: registeredUser });
+    } else {
+      throw new Error("Email Already Registered");
+    }
+  } catch (error) {
+    res.send({ error: error.message, message: "Registration Failed" });
+  }
 };
 
 export const LoginController = async (req: Request, res: Response) => {
-    (async () => {
-        try {
-            const { storeId, password } = req.body;
+  try {
+    const errors = validationResult(req);
 
-            const userData = await UserModal.findOne(
-                { storeId, password },
-                { password: 0, createdAt: 0, updatedAt: 0, __v: 0 }
-            );
+    if (!errors.isEmpty()) {
+      return res
+        .status(400)
+        .json({ errors: errors.array(), message: "Login Failed" });
+    }
 
-            if (userData) {
-                const token = sign(userData.toObject(), JWT_SECRET);
-                res.send({
-                    message: "Login Successful",
-                    data: { user: userData, token },
-                });
-            } else {
-                res.status(400).send({ error: "Invalid Login Crendicals" });
-            }
-        } catch (error) {
-            res.send({ error: "Error Occured" });
-        }
-    })();
+    const userData = await UserModal.findOne(req.body, {
+      password: 0,
+      createdAt: 0,
+      updatedAt: 0,
+      __v: 0,
+    });
+
+    if (userData) {
+      const token = sign(userData.toObject(), JWT_SECRET);
+      res.send({
+        message: "Login Successful",
+        data: { user: userData, token },
+      });
+    } else {
+      throw new Error("Invalid Login Credentials");
+    }
+  } catch (error) {
+    res.status(400).send({ error: error.message, message: "Login Failed" });
+  }
 };
 
 export const UserDetailController = async (req: MyRequest, res: MyResponse) => {
-    (async () => {
-        try {
-            // const { storeId, } = req.user;
+  (async () => {
+    try {
+      // const { storeId, } = req.user;
 
-            res.send({
-                data: req.user,
-            });
-            // } else {
-            //     res.status(400).send({ error: "Invalid Login Crendicals" });
-            // }
-        } catch (error) {
-            res.send({ error: "Error Occured" });
-        }
-    })();
+      res.send({
+        data: req.user,
+      });
+      // } else {
+      //     res.status(400).send({ error: "Invalid Login Crendicals" });
+      // }
+    } catch (error) {
+      res.send({ error: "Error Occured" });
+    }
+  })();
 };
