@@ -7,44 +7,44 @@ import { registerUser } from "../../services/apis";
 import { RegisterValues } from "../../types";
 
 const Register = () => {
-    const [registerValues, setRegisterValues] = React.useState<RegisterValues>(
-        initialRegisterValues
-    );
+  const [registerValues, setRegisterValues] = React.useState<RegisterValues>(
+    initialRegisterValues
+  );
 
-    // TOREMOVE: for testing
-    useEffect(() => {
-        setRegisterValues(REGISTER_USER_VALUES);
-    }, [setRegisterValues]);
+  // TOREMOVE: for testing
+  useEffect(() => {
+    setRegisterValues(REGISTER_USER_VALUES);
+  }, [setRegisterValues]);
 
-    const handleChange = (prop: keyof RegisterValues) => (
-        event: React.ChangeEvent<HTMLInputElement>
-    ) => {
-        setRegisterValues({ ...registerValues, [prop]: event.target.value });
-    };
+  const handleChange = (prop: keyof RegisterValues) => (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setRegisterValues({ ...registerValues, [prop]: event.target.value });
+  };
 
-    const handleRegister = () => {
-        (async () => {
-            try {
-                console.log("Values : ", registerValues);
+  const handleRegister = () => {
+    (async () => {
+      try {
+        console.log("Values : ", registerValues);
 
-                const response = await registerUser(registerValues);
-                console.log("Rsponse : ", response);
+        const response = await registerUser(registerValues);
+        console.log("Rsponse : ", response);
 
-                const data = await response.json();
-                console.log("Data : ", data);
-            } catch (error) {
-                console.log("Error : ", error);
-            }
-        })();
-    };
+        const data = await response.json();
+        console.log("Data : ", data);
+      } catch (error) {
+        console.log("Error : ", error);
+      }
+    })();
+  };
 
-    return (
-        <RegisterView
-            handleChange={handleChange}
-            handleRegister={handleRegister}
-            registerValues={registerValues}
-        />
-    );
+  return (
+    <RegisterView
+      handleChange={handleChange}
+      handleRegister={handleRegister}
+      registerValues={registerValues}
+    />
+  );
 };
 
 export default Register;
