@@ -41,9 +41,7 @@ cd client && start npm start
 cd ..
 
 # To Start MongoDb Server
-C:
 start mongod
-D:
 
 # To Start the Backend Server
 cd server && start npm start
