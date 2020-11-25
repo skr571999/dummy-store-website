@@ -1,15 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
+
+import { loginUser } from "../../services/apis";
+import { AlertStatusType, LoginValues } from "../../types";
 import LoginView from "./login.view";
 
-interface LoginValues {
-  storeID: string;
-  password: string;
-}
-
 const Login = () => {
-  const [loginValues, setLoginValues] = React.useState<LoginValues>({
-    storeID: "",
-    password: "",
+  const [loginValues, setLoginValues] = useState<LoginValues>({
+    email: "admin@gmail.com",
+    password: "admin",
+  });
+
+  const [alertStatus, setAlertStatus] = useState<AlertStatusType>({
+    show: false,
+    message: "",
+    type: undefined,
   });
 
   const handleChange = (prop: keyof LoginValues) => (
@@ -19,7 +23,21 @@ const Login = () => {
   };
 
   const handleLogin = () => {
-    console.log("Values : ", loginValues);
+    (async () => {
+      try {
+        console.log("Values : ", loginValues);
+
+        const response = await loginUser(loginValues);
+        setAlertStatus({
+          message: response?.error || response.message,
+          show: true,
+          type: response?.error || response?.errors ? "error" : "success",
+        });
+        console.log("Response : ", response);
+      } catch (error) {
+        console.log("Error : ", error);
+      }
+    })();
   };
 
   return (
@@ -27,6 +45,7 @@ const Login = () => {
       loginValues={loginValues}
       handleChange={handleChange}
       handleLogin={handleLogin}
+      alertStatus={alertStatus}
     />
   );
 };

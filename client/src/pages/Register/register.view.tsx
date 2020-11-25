@@ -1,6 +1,6 @@
 import React from "react";
-
 import { Link as RouterLink } from "react-router-dom";
+
 import {
   Box,
   Button,
@@ -10,13 +10,13 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
+import Alert from "@material-ui/lab/Alert";
 
 import clsx from "clsx";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 
 import PasswordField from "../../components/PasswordField";
-// import GenderField from "../../components/GenderField";
-import { RegisterValues } from "../../types";
+import { AlertStatusType, RegisterValues } from "../../types";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -44,14 +44,18 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface RegisterViewProps {
   registerValues: RegisterValues;
-  handleChange: any;
-  handleRegister: any;
+  handleChange: (
+    prop: keyof RegisterValues
+  ) => (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleRegister: () => void;
+  alertStatus: AlertStatusType;
 }
 
 const RegisterView: React.FC<RegisterViewProps> = ({
   handleChange,
   registerValues,
   handleRegister,
+  alertStatus,
 }) => {
   const classes = useStyles();
   return (
@@ -60,18 +64,23 @@ const RegisterView: React.FC<RegisterViewProps> = ({
         <Paper>
           <Grid container justify="center">
             <Grid item xs={10}>
-              <Box className={classes.center} mt="40px">
+              <Box className={classes.center} mt="40px" mb="20px">
                 <Typography variant="h4">Register to iStore</Typography>
               </Box>
+
+              {alertStatus.show && (
+                <Alert severity={alertStatus.type}>{alertStatus.message}</Alert>
+              )}
 
               <Box mt="30px">
                 <TextField
                   id="fullName"
+                  name="name"
                   label="Full Name"
                   variant="outlined"
                   className={classes.w100}
-                  value={registerValues.fullName}
-                  onChange={handleChange("fullName")}
+                  value={registerValues.name}
+                  onChange={handleChange("name")}
                   required
                 />
               </Box>
@@ -79,11 +88,12 @@ const RegisterView: React.FC<RegisterViewProps> = ({
               <Box mt="30px">
                 <TextField
                   id="emailID"
+                  name="email"
                   label="Email ID"
                   variant="outlined"
                   className={classes.w100}
-                  value={registerValues.emailId}
-                  onChange={handleChange("emailId")}
+                  value={registerValues.email}
+                  onChange={handleChange("email")}
                   required
                 />
               </Box>

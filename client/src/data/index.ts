@@ -1,8 +1,8 @@
 import { RegisterValues } from "../types";
 
 export const initialRegisterValues: RegisterValues = {
-  fullName: "",
-  emailId: "",
+  name: "",
+  email: "",
   storeId: "",
   mobileNo: "",
   gender: "",
@@ -13,8 +13,8 @@ export const initialRegisterValues: RegisterValues = {
 };
 
 export const REGISTER_USER_VALUES: RegisterValues = {
-  fullName: "Admin",
-  emailId: "admin@gmail.com",
+  name: "Admin",
+  email: "admin@gmail.com",
   storeId: "admin",
   mobileNo: "1245",
   gender: "male",

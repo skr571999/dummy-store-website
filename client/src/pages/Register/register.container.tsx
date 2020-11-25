@@ -1,17 +1,23 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import RegisterView from "./register.view";
 
 import { initialRegisterValues, REGISTER_USER_VALUES } from "../../data";
 import { registerUser } from "../../services/apis";
-import { RegisterValues } from "../../types";
+import { AlertStatusType, RegisterValues } from "../../types";
 
 const Register = () => {
-  const [registerValues, setRegisterValues] = React.useState<RegisterValues>(
+  const [registerValues, setRegisterValues] = useState<RegisterValues>(
     initialRegisterValues
   );
 
-  // TOREMOVE: for testing
+  const [alertStatus, setAlertStatus] = useState<AlertStatusType>({
+    show: false,
+    message: "",
+    type: undefined,
+  });
+
+  // For Testing
   useEffect(() => {
     setRegisterValues(REGISTER_USER_VALUES);
   }, [setRegisterValues]);
@@ -28,10 +34,12 @@ const Register = () => {
         console.log("Values : ", registerValues);
 
         const response = await registerUser(registerValues);
-        console.log("Rsponse : ", response);
-
-        const data = await response.json();
-        console.log("Data : ", data);
+        setAlertStatus({
+          message: response?.error || response.message,
+          show: true,
+          type: response?.error || response?.errors ? "error" : "success",
+        });
+        console.log("Response : ", response);
       } catch (error) {
         console.log("Error : ", error);
       }
@@ -43,6 +51,7 @@ const Register = () => {
       handleChange={handleChange}
       handleRegister={handleRegister}
       registerValues={registerValues}
+      alertStatus={alertStatus}
     />
   );
 };

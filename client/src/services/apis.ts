@@ -1,25 +1,38 @@
-import { RegisterValues } from "../types";
+import axios from "axios";
 
-const BASE_URL = "http://localhost:8000";
+import { API_BASE_URL } from "../constants";
+import { LoginValues, RegisterValues } from "../types";
+import { LoginResponse, RegisterResponse } from "./model";
 
-const sendGetRequest = (path: string) => {
-    return fetch(BASE_URL + path);
+axios.defaults.baseURL = API_BASE_URL;
+
+export const updateBearToken = () => {
+  const AUTH_TOKEN = localStorage.getItem("AUTH_TOKEN");
+
+  if (AUTH_TOKEN)
+    axios.defaults.headers.common["Authorization"] = `Bearer ${AUTH_TOKEN}`;
 };
 
-const sendPostRequest = (url: string, data: object) => {
-    return fetch(BASE_URL + url, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json;charset=utf-8",
-        },
-        body: JSON.stringify(data),
-    });
+export const registerUser = async (
+  registerData: RegisterValues
+): Promise<RegisterResponse> => {
+  try {
+    const response = await axios.post("/user/register", registerData);
+    return response.data;
+  } catch (error) {
+    const errorResponseData = error?.response?.data;
+    return errorResponseData;
+  }
 };
 
-export const connectServer = () => {
-    return sendGetRequest("");
-};
-
-export const registerUser = (registerData: RegisterValues) => {
-    return sendPostRequest("/user/register", registerData);
+export const loginUser = async (
+  loginData: LoginValues
+): Promise<LoginResponse> => {
+  try {
+    const response = await axios.post("/user/login", loginData);
+    return response.data;
+  } catch (error) {
+    const errorResponseData = error?.response?.data;
+    return errorResponseData;
+  }
 };

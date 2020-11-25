@@ -1,6 +1,6 @@
 import React from "react";
-
 import { Link as RouterLink } from "react-router-dom";
+
 import {
   Box,
   Button,
@@ -10,11 +10,12 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-
-import clsx from "clsx";
+import Alert from "@material-ui/lab/Alert";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
+import clsx from "clsx";
 
 import PasswordField from "../../components/PasswordField";
+import { AlertStatusType, LoginValues } from "../../types";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -41,15 +42,19 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface LoginViewProps {
-  loginValues: any;
-  handleChange: any;
-  handleLogin: any;
+  loginValues: LoginValues;
+  handleChange: (
+    prop: keyof LoginValues
+  ) => (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleLogin: () => void;
+  alertStatus: AlertStatusType;
 }
 
 const LoginView: React.FC<LoginViewProps> = ({
   loginValues,
   handleChange,
   handleLogin,
+  alertStatus,
 }) => {
   const classes = useStyles();
 
@@ -59,17 +64,22 @@ const LoginView: React.FC<LoginViewProps> = ({
         <Paper>
           <Grid container justify="center">
             <Grid item xs={10}>
-              <Box className={classes.center} mt="40px">
+              <Box className={classes.center} mt="40px" mb="20px">
                 <Typography variant="h4">Login to iStore</Typography>
               </Box>
+
+              {alertStatus.show && (
+                <Alert severity={alertStatus.type}>{alertStatus.message}</Alert>
+              )}
 
               <Box mt="30px">
                 <TextField
                   id="outlined-basic"
-                  label="Store ID"
+                  label="Email"
                   variant="outlined"
                   className={classes.w100}
-                  onChange={handleChange("storeID")}
+                  value={loginValues.email}
+                  onChange={handleChange("email")}
                   required
                 />
               </Box>
