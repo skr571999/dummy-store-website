@@ -27,12 +27,20 @@ export const RegisterController = async (req: Request, res: Response) => {
       delete registeredUser.updatedAt;
       delete registeredUser.password;
 
-      res.send({ message: "Registration successful", data: registeredUser });
+      res.send({
+        status: "success",
+        message: "Registration successful",
+        data: { user: registeredUser },
+      });
     } else {
       throw new Error("Email Already Registered");
     }
   } catch (error) {
-    res.send({ error: error.message, message: "Registration Failed" });
+    res.status(400).send({
+      status: "fail",
+      error: error.message,
+      message: "Registration Failed",
+    });
   }
 };
 
@@ -56,6 +64,7 @@ export const LoginController = async (req: Request, res: Response) => {
     if (userData) {
       const token = sign(userData.toObject(), JWT_SECRET);
       res.send({
+        status: "success",
         message: "Login Successful",
         data: { user: userData, token },
       });
@@ -63,7 +72,9 @@ export const LoginController = async (req: Request, res: Response) => {
       throw new Error("Invalid Login Credentials");
     }
   } catch (error) {
-    res.status(400).send({ error: error.message, message: "Login Failed" });
+    res
+      .status(400)
+      .send({ status: "fail", error: error.message, message: "Login Failed" });
   }
 };
 
