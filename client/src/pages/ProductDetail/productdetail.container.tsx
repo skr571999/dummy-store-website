@@ -76,7 +76,7 @@ const ProductDetail = () => {
       try {
         const response = await getProductById(productID);
         console.log("Response : ", response);
-        if (response.data) setProduct(response.data);
+        if (response.data?.product) setProduct(response.data.product);
       } catch (error) {
         console.log("Error : ", error);
       }

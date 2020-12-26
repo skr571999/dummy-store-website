@@ -4,8 +4,6 @@ import { Box, Grid, Paper } from "@material-ui/core";
 
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 
-import { PRODUCT_LIST } from "../../constants";
-
 import ProductCard from "./components/ProductCard";
 import CategoryFilter from "./components/CategoryFitler";
 import PriceSort from "./components/PriceSort";
@@ -56,7 +54,7 @@ const ProductList = () => {
       try {
         const response = await getProducts();
         console.log("Response : ", response);
-        if (response.data) setProducts(response.data);
+        if (response.data?.products) setProducts(response.data.products);
       } catch (error) {
         console.log("Error : ", error);
       }
@@ -80,21 +78,25 @@ const ProductList = () => {
                 </Grid>
               </Box>
               <Box className={classes.center} mt="40px">
-                {!products ? (
-                  <h2>Loading...</h2>
-                ) : (
+                {products ? (
                   <Grid container>
-                    {products?.map((val, index) => (
-                      <Grid
-                        item
-                        xs={12}
-                        key={index}
-                        className={classes.productCard}
-                      >
-                        <ProductCard {...val} />
-                      </Grid>
-                    ))}
+                    {products.length > 0 ? (
+                      products?.map((val, index) => (
+                        <Grid
+                          item
+                          xs={12}
+                          key={index}
+                          className={classes.productCard}
+                        >
+                          <ProductCard {...val} />
+                        </Grid>
+                      ))
+                    ) : (
+                      <h2>No Product Available</h2>
+                    )}
                   </Grid>
+                ) : (
+                  <h2>Loading...</h2>
                 )}
               </Box>
             </Grid>

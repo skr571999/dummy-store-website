@@ -29,33 +29,23 @@ export interface LoginResponse {
 }
 
 export interface Product {
-  id: number;
+  _id?: string;
   name: string;
   brand: string;
   price: string;
-  storage: {
-    value: number;
-    unit: string;
-  };
-  ram: {
-    value: number;
-    unit: string;
-  };
-  processor: string;
-  size: string;
-  color: string;
+  category: string;
   description: string;
 }
 
 export interface ProductsResponse {
-  data?: Product[];
+  data?: { products: Product[] };
   error: string;
   errors?: [];
   message: string;
 }
 
 export interface ProductByIdResponse {
-  data?: Product;
+  data?: { product: Product };
   error: string;
   errors?: [];
   message: string;

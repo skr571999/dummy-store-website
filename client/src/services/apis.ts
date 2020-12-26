@@ -4,6 +4,7 @@ import { API_BASE_URL } from "../constants";
 import { LoginValues, RegisterValues } from "../types";
 import {
   LoginResponse,
+  Product,
   ProductByIdResponse,
   ProductsResponse,
   RegisterResponse,
@@ -57,6 +58,20 @@ export const getProductById = async (
 ): Promise<ProductByIdResponse> => {
   try {
     const response = await axios.get("/product/" + id);
+    return response.data;
+  } catch (error) {
+    const errorResponseData = error?.response?.data;
+    return errorResponseData;
+  }
+};
+
+export const addProduct = async (
+  product: Product
+): Promise<ProductByIdResponse> => {
+  try {
+    const _product = product;
+    delete _product._id;
+    const response = await axios.post("/product", product);
     return response.data;
   } catch (error) {
     const errorResponseData = error?.response?.data;
