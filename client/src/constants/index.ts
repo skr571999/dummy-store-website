@@ -18,6 +18,10 @@ export const FRONTEND_ENDPOINTS = [
     link: "/productlist",
   },
   {
+    name: "Add Product",
+    link: "/addproduct",
+  },
+  {
     name: "Profile",
     link: "/profile",
   },

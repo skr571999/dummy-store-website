@@ -27,3 +27,36 @@ export interface LoginResponse {
   errors?: [];
   message: string;
 }
+
+export interface Product {
+  id: number;
+  name: string;
+  brand: string;
+  price: string;
+  storage: {
+    value: number;
+    unit: string;
+  };
+  ram: {
+    value: number;
+    unit: string;
+  };
+  processor: string;
+  size: string;
+  color: string;
+  description: string;
+}
+
+export interface ProductsResponse {
+  data?: Product[];
+  error: string;
+  errors?: [];
+  message: string;
+}
+
+export interface ProductByIdResponse {
+  data?: Product;
+  error: string;
+  errors?: [];
+  message: string;
+}

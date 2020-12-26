@@ -1,13 +1,15 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 
 import { loginUser } from "../../services/apis";
 import { AlertStatusType, LoginValues } from "../../types";
 import LoginView from "./login.view";
 
 const Login = () => {
+  const history = useHistory();
   const [loginValues, setLoginValues] = useState<LoginValues>({
-    email: "admin@gmail.com",
-    password: "admin",
+    email: "",
+    password: "",
   });
 
   const [alertStatus, setAlertStatus] = useState<AlertStatusType>({
@@ -33,6 +35,7 @@ const Login = () => {
           show: true,
           type: response?.error || response?.errors ? "error" : "success",
         });
+        history.push("/");
         console.log("Response : ", response);
       } catch (error) {
         console.log("Error : ", error);

@@ -2,7 +2,12 @@ import axios from "axios";
 
 import { API_BASE_URL } from "../constants";
 import { LoginValues, RegisterValues } from "../types";
-import { LoginResponse, RegisterResponse } from "./model";
+import {
+  LoginResponse,
+  ProductByIdResponse,
+  ProductsResponse,
+  RegisterResponse,
+} from "./model";
 
 axios.defaults.baseURL = API_BASE_URL;
 
@@ -30,6 +35,28 @@ export const loginUser = async (
 ): Promise<LoginResponse> => {
   try {
     const response = await axios.post("/user/login", loginData);
+    return response.data;
+  } catch (error) {
+    const errorResponseData = error?.response?.data;
+    return errorResponseData;
+  }
+};
+
+export const getProducts = async (): Promise<ProductsResponse> => {
+  try {
+    const response = await axios.get("/product");
+    return response.data;
+  } catch (error) {
+    const errorResponseData = error?.response?.data;
+    return errorResponseData;
+  }
+};
+
+export const getProductById = async (
+  id: string
+): Promise<ProductByIdResponse> => {
+  try {
+    const response = await axios.get("/product/" + id);
     return response.data;
   } catch (error) {
     const errorResponseData = error?.response?.data;

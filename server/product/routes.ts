@@ -1,9 +1,10 @@
 import { Router } from "express";
 
-// import {} from "./controllers";
+import { ProductByIdController, ProductListController } from "./controllers";
 
 const router = Router();
 
-// router.get("/detail", );
+router.get("/", ProductListController);
+router.get("/:id", ProductByIdController);
 
 export default router;
