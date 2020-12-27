@@ -48,18 +48,36 @@ const useStyles = makeStyles((theme: Theme) =>
 const ProductList = () => {
   const classes = useStyles();
   const [products, setProducts] = useState<Product[]>();
+  const [priceSort, setPriceSort] = React.useState(true);
 
   useEffect(() => {
     (async () => {
       try {
         const response = await getProducts();
         console.log("Response : ", response);
-        if (response.data?.products) setProducts(response.data.products);
+        if (response.data?.products) {
+          const _products = response.data.products;
+          _products.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
+          setProducts(_products);
+        }
       } catch (error) {
         console.log("Error : ", error);
       }
     })();
   }, []);
+
+  const handlePriceSort = () => {
+    if (products) {
+      const _products = [...products];
+      _products.sort((a, b) =>
+        !priceSort
+          ? parseFloat(a.price) - parseFloat(b.price)
+          : parseFloat(b.price) - parseFloat(a.price)
+      );
+      setProducts(_products);
+      setPriceSort(!priceSort);
+    }
+  };
 
   return (
     <Grid container justify="center">
@@ -73,7 +91,7 @@ const ProductList = () => {
                     <CategoryFilter />
                   </Grid>
                   <Grid item xs={4}>
-                    <PriceSort />
+                    <PriceSort {...{ handlePriceSort, priceSort }} />
                   </Grid>
                 </Grid>
               </Box>
