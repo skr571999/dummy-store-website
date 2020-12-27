@@ -101,52 +101,52 @@ const ProductList = () => {
         <Paper>
           <Grid container justify="center">
             <Grid item xs={11}>
-              <Box className={classes.center} mt="40px" mx={1}>
-                <Grid container alignItems="center">
-                  <Grid item xs={8}>
-                    {categories && (
-                      <CategoryFilter
-                        {...{
-                          categories,
-                          handleSelectCategory,
-                          selectedCategory,
-                        }}
-                      />
-                    )}
-                  </Grid>
-                  <Grid item xs={4}>
-                    <PriceSort {...{ handlePriceSort, priceSort }} />
-                  </Grid>
-                </Grid>
-              </Box>
-              <Box className={classes.center} mt="40px">
-                {products ? (
-                  <Grid container>
-                    {products.length > 0 ? (
-                      products
-                        ?.filter((product) =>
-                          selectedCategory !== "all"
-                            ? product.category === selectedCategory
-                            : true
-                        )
-                        .map((product, index) => (
-                          <Grid
-                            item
-                            xs={12}
-                            key={index}
-                            className={classes.productCard}
-                          >
-                            <ProductCard product={product} />
-                          </Grid>
-                        ))
-                    ) : (
-                      <h2>No Product Available</h2>
-                    )}
-                  </Grid>
-                ) : (
-                  <h2>Loading...</h2>
-                )}
-              </Box>
+              {products && categories ? (
+                <>
+                  <Box className={classes.center} mt="40px" mx={1}>
+                    <Grid container alignItems="center">
+                      <Grid item xs={8}>
+                        <CategoryFilter
+                          {...{
+                            categories,
+                            handleSelectCategory,
+                            selectedCategory,
+                          }}
+                        />
+                      </Grid>
+                      <Grid item xs={4}>
+                        <PriceSort {...{ handlePriceSort, priceSort }} />
+                      </Grid>
+                    </Grid>
+                  </Box>
+                  <Box className={classes.center} mt="40px">
+                    <Grid container>
+                      {products.length > 0 ? (
+                        products
+                          ?.filter((product) =>
+                            selectedCategory !== "all"
+                              ? product.category === selectedCategory
+                              : true
+                          )
+                          .map((product, index) => (
+                            <Grid
+                              item
+                              xs={12}
+                              key={index}
+                              className={classes.productCard}
+                            >
+                              <ProductCard product={product} />
+                            </Grid>
+                          ))
+                      ) : (
+                        <h2>No Product Available</h2>
+                      )}
+                    </Grid>
+                  </Box>
+                </>
+              ) : (
+                <h2>Loading...</h2>
+              )}
             </Grid>
           </Grid>
         </Paper>
