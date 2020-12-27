@@ -49,6 +49,8 @@ const ProductList = () => {
   const classes = useStyles();
   const [products, setProducts] = useState<Product[]>();
   const [priceSort, setPriceSort] = React.useState(true);
+  const [categories, setCategories] = useState<string[]>();
+  const [selectedCategory, setSelectedCategory] = useState("all");
 
   useEffect(() => {
     (async () => {
@@ -57,7 +59,15 @@ const ProductList = () => {
         console.log("Response : ", response);
         if (response.data?.products) {
           const _products = response.data.products;
-          _products.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
+          const _categories = new Set<string>();
+          _products.sort((a, b) => {
+            _categories.add(a.category);
+            _categories.add(b.category);
+            return parseFloat(a.price) - parseFloat(b.price);
+          });
+          setCategories(
+            Array.from(_categories).sort((a, b) => (a > b ? 1 : -1))
+          );
           setProducts(_products);
         }
       } catch (error) {
@@ -79,6 +89,12 @@ const ProductList = () => {
     }
   };
 
+  const handleSelectCategory = (
+    event: React.ChangeEvent<{ value: unknown }>
+  ) => {
+    setSelectedCategory(event.target.value as string);
+  };
+
   return (
     <Grid container justify="center">
       <Grid item xs={12} sm={10} md={8} lg={6}>
@@ -88,7 +104,15 @@ const ProductList = () => {
               <Box className={classes.center} mt="40px" mx={1}>
                 <Grid container alignItems="center">
                   <Grid item xs={8}>
-                    <CategoryFilter />
+                    {categories && (
+                      <CategoryFilter
+                        {...{
+                          categories,
+                          handleSelectCategory,
+                          selectedCategory,
+                        }}
+                      />
+                    )}
                   </Grid>
                   <Grid item xs={4}>
                     <PriceSort {...{ handlePriceSort, priceSort }} />
@@ -99,16 +123,22 @@ const ProductList = () => {
                 {products ? (
                   <Grid container>
                     {products.length > 0 ? (
-                      products?.map((product, index) => (
-                        <Grid
-                          item
-                          xs={12}
-                          key={index}
-                          className={classes.productCard}
-                        >
-                          <ProductCard product={product} />
-                        </Grid>
-                      ))
+                      products
+                        ?.filter((product) =>
+                          selectedCategory !== "all"
+                            ? product.category === selectedCategory
+                            : true
+                        )
+                        .map((product, index) => (
+                          <Grid
+                            item
+                            xs={12}
+                            key={index}
+                            className={classes.productCard}
+                          >
+                            <ProductCard product={product} />
+                          </Grid>
+                        ))
                     ) : (
                       <h2>No Product Available</h2>
                     )}
