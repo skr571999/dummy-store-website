@@ -1,13 +1,20 @@
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
+import { DeepMap, FieldError } from "react-hook-form";
 
-import { Box, Button, Grid, Link, Paper, Typography } from "@material-ui/core";
+import {
+  Box,
+  Button,
+  Grid,
+  Link,
+  Paper,
+  TextField,
+  Typography,
+} from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 
 import clsx from "clsx";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-import { Formik, Form, Field } from "formik";
-import { TextField } from "formik-material-ui";
 
 import PasswordField from "../../components/PasswordField";
 import { AlertStatusType, RegisterValues } from "../../types";
@@ -37,193 +44,127 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface RegisterViewProps {
-  registerValues: RegisterValues;
-  handleChange: (
-    prop: keyof RegisterValues
-  ) => (event: React.ChangeEvent<HTMLInputElement>) => void;
+  register: (refOrValidateRule: any, validateRule?: any) => (ref: any) => void;
   handleRegister: () => void;
+  errors: DeepMap<RegisterValues, FieldError>;
   alertStatus: AlertStatusType;
+  password: React.MutableRefObject<{}>;
 }
 
 const RegisterView: React.FC<RegisterViewProps> = ({
-  handleChange,
-  registerValues,
   handleRegister,
   alertStatus,
+  errors,
+  register,
+  password,
 }) => {
   const classes = useStyles();
+
   return (
-    <Formik
-      initialValues={{ ...registerValues }}
-      validate={(values) => {
-        console.log("VALUE : ", values);
+    <Grid container justify="center">
+      <Grid item xs={12} sm={10} md={8} lg={6}>
+        <Paper>
+          <form>
+            <Grid container justify="center">
+              <Grid item xs={10}>
+                <Box className={classes.center} mt="40px" mb="20px">
+                  <Typography variant="h4">Register to iStore</Typography>
+                </Box>
 
-        const errors: Partial<RegisterValues> = {};
-        if (!values.email) {
-          errors.email = "Required";
-        } else if (
-          !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
-        ) {
-          errors.email = "Invalid email address";
-        }
-        return errors;
-      }}
-      onSubmit={(values, { setSubmitting }) => {
-        setTimeout(() => {
-          setSubmitting(false);
-          alert(JSON.stringify(values, null, 2));
-        }, 500);
-      }}
-    >
-      {({ submitForm, isSubmitting }) => (
-        <Grid container justify="center">
-          <Grid item xs={12} sm={10} md={8} lg={6}>
-            <Form>
-              <Paper>
-                <Grid container justify="center">
-                  <Grid item xs={10}>
-                    <Box className={classes.center} mt="40px" mb="20px">
-                      <Typography variant="h4">Register to iStore</Typography>
-                    </Box>
+                {alertStatus.show && (
+                  <Alert severity={alertStatus.type}>
+                    {alertStatus.message}
+                  </Alert>
+                )}
 
-                    {alertStatus.show && (
-                      <Alert severity={alertStatus.type}>
-                        {alertStatus.message}
-                      </Alert>
-                    )}
-
-                    <Box mt="30px">
-                      <Field
-                        id="fullName"
-                        name="name"
-                        label="Full Name"
-                        variant="outlined"
-                        className={classes.w100}
-                        // value={registerValues.name}
-                        // onChange={handleChange("name")}
-                        required
-                        component={TextField}
-                      />
-                      {/* <TextField
-                  /> */}
-                    </Box>
-
-                    <Box mt="30px">
-                      <Field
-                        id="emailID"
-                        name="email"
-                        type="email"
-                        label="Email ID"
-                        variant="outlined"
-                        className={classes.w100}
-                        // value={registerValues.email}
-                        // onChange={handleChange("email")}
-                        component={TextField}
-                        required
-                      />
-                    </Box>
-
-                    {/* <Box mt="30px">
+                <Box mt="30px">
                   <TextField
-                    id="storeId"
-                    label="Unique Store ID"
+                    id="fullName"
+                    name="name"
+                    label="Full Name"
                     variant="outlined"
+                    inputRef={register({
+                      required: "Required",
+                    })}
                     className={classes.w100}
-                    value={registerValues.storeId}
-                    onChange={handleChange("storeID")}
                     required
                   />
-                </Box> */}
+                  {errors.name && errors.name.message}
+                </Box>
 
-                    {/* <Box mt="30px">
+                <Box mt="30px">
                   <TextField
-                    id="mobileNo"
-                    label="Mobile No."
+                    id="emailID"
+                    name="email"
+                    inputRef={register({
+                      required: "Required",
+                      pattern: {
+                        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                        message: "Invalid email address",
+                      },
+                    })}
+                    label="Email ID"
                     variant="outlined"
                     className={classes.w100}
-                    value={registerValues.mobileNo}
-                    onChange={handleChange("mobileNo")}
                     required
                   />
-                </Box> */}
+                  {errors.email && errors.email.message}
+                </Box>
 
-                    {/* <Box mt="30px">
-                  <GenderField
-                    gender={registerValues.gender}
-                    handleChange={handleChange}
-                  />
-                </Box> */}
-
-                    {/* <Box mt="30px">
+                <Box mt="30px">
                   <TextField
-                    id="city"
-                    label="City"
+                    fullWidth
+                    inputRef={register({
+                      required: "Required",
+                    })}
+                    label="Password"
+                    name="password"
+                    type="password"
                     variant="outlined"
-                    className={classes.w100}
-                    value={registerValues.city}
-                    onChange={handleChange("city")}
                     required
                   />
-                </Box> */}
-
-                    {/* <Box mt="30px">
+                  {errors.password && errors.password.message}
+                </Box>
+                <Box mt="30px">
                   <TextField
-                    id="country"
-                    label="Country"
+                    fullWidth
+                    inputRef={register({
+                      required: "Required",
+                      validate: (value: any) =>
+                        value === password.current ||
+                        "The passwords do not match",
+                    })}
+                    label="Confirm Password"
+                    name="confirmPassword"
+                    type="password"
                     variant="outlined"
-                    className={classes.w100}
-                    value={registerValues.country}
-                    onChange={handleChange("country")}
                     required
                   />
-                </Box> */}
+                  {errors.confirmPassword && errors.confirmPassword.message}
+                </Box>
 
-                    <Box mt="30px">
-                      <PasswordField
-                        handleChange={handleChange}
-                        password={registerValues.password}
-                      />
-                    </Box>
+                <Box mt="30px" className={clsx(classes.w100, classes.right)}>
+                  <Link component={RouterLink} to="/login">
+                    Already have a account? Login here.
+                  </Link>
+                </Box>
 
-                    <Box mt="30px">
-                      <PasswordField
-                        handleChange={handleChange}
-                        label="Confirm Password"
-                        prop="confirmPassword"
-                        password={registerValues.confirmPassword}
-                      />
-                    </Box>
-
-                    <Box
-                      mt="30px"
-                      className={clsx(classes.w100, classes.right)}
-                    >
-                      <Link component={RouterLink} to="/login">
-                        Already have a account? Login here.
-                      </Link>
-                    </Box>
-
-                    <Box
-                      my="30px"
-                      className={clsx(classes.w100, classes.center)}
-                    >
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        // onClick={handleRegister}
-                        onClick={submitForm}
-                      >
-                        Register
-                      </Button>
-                    </Box>
-                  </Grid>
-                </Grid>
-              </Paper>
-            </Form>
-          </Grid>
-        </Grid>
-      )}
-    </Formik>
+                <Box my="30px" className={clsx(classes.w100, classes.center)}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleRegister}
+                    type="submit"
+                  >
+                    Register
+                  </Button>
+                </Box>
+              </Grid>
+            </Grid>
+          </form>
+        </Paper>
+      </Grid>
+    </Grid>
   );
 };
 

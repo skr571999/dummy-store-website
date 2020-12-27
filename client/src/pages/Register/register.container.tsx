@@ -1,39 +1,29 @@
-import React, { useEffect, useState } from "react";
+import React, { useRef, useState } from "react";
 
 import RegisterView from "./register.view";
+import { useForm } from "react-hook-form";
 
-import { initialRegisterValues, REGISTER_USER_VALUES } from "../../data";
 import { registerUser } from "../../services/apis";
 import { AlertStatusType, RegisterValues } from "../../types";
 
 const Register = () => {
-  const [registerValues, setRegisterValues] = useState<RegisterValues>(
-    initialRegisterValues
-  );
-
   const [alertStatus, setAlertStatus] = useState<AlertStatusType>({
     show: false,
     message: "",
     type: undefined,
   });
 
-  // For Testing
-  useEffect(() => {
-    setRegisterValues(REGISTER_USER_VALUES);
-  }, [setRegisterValues]);
+  const { handleSubmit, register, errors, watch } = useForm<RegisterValues>({
+    defaultValues: {},
+  });
 
-  const handleChange = (prop: keyof RegisterValues) => (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setRegisterValues({ ...registerValues, [prop]: event.target.value });
-  };
+  const password = useRef({});
+  password.current = watch("password", "");
 
-  const handleRegister = () => {
+  const handleRegister = handleSubmit((data) => {
     (async () => {
       try {
-        console.log("Values : ", registerValues);
-
-        const response = await registerUser(registerValues);
+        const response = await registerUser(data);
         setAlertStatus({
           message: response?.error || response.message,
           show: true,
@@ -44,14 +34,11 @@ const Register = () => {
         console.log("Error : ", error);
       }
     })();
-  };
+  });
 
   return (
     <RegisterView
-      handleChange={handleChange}
-      handleRegister={handleRegister}
-      registerValues={registerValues}
-      alertStatus={alertStatus}
+      {...{ register, errors, password, handleRegister, alertStatus }}
     />
   );
 };
