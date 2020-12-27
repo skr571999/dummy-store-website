@@ -14,6 +14,7 @@ import {
   IconButton,
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
+import CloseIcon from "@material-ui/icons/Close";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 
 import { setUserDetailReducer } from "../../reducers";
@@ -32,6 +33,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     list: {
       width: "auto",
+      height: "100vh",
     },
   })
 );
@@ -57,7 +59,7 @@ const NavBar = () => {
     <>
       <AppBar position="fixed" color="primary" className={classes.appBar}>
         <Toolbar>
-          <Hidden mdUp>
+          <Hidden smUp>
             <IconButton
               edge="start"
               className={classes.menuButton}
@@ -65,13 +67,13 @@ const NavBar = () => {
               color="inherit"
               aria-label="menu"
             >
-              <MenuIcon />
+              {open ? <CloseIcon /> : <MenuIcon />}
             </IconButton>
           </Hidden>
           <Typography variant="h6" noWrap className={classes.title}>
             iStore
           </Typography>
-          <Hidden smDown>
+          <Hidden xsDown>
             {FRONTEND_ENDPOINTS.filter(
               (value) =>
                 value.protect === isLogin || value.protect === undefined
@@ -93,7 +95,7 @@ const NavBar = () => {
           </Hidden>
         </Toolbar>
       </AppBar>
-      <Hidden mdUp>
+      <Hidden smUp>
         <Drawer variant={"persistent"} anchor="top" open={open}>
           <div className={classes.list} role="presentation">
             <List>

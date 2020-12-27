@@ -88,8 +88,9 @@ const RegisterView: React.FC<RegisterViewProps> = ({
                     })}
                     className={classes.w100}
                     required
+                    error={!!errors.name}
+                    helperText={errors.name?.message}
                   />
-                  {errors.name && errors.name.message}
                 </Box>
 
                 <Box mt="30px">
@@ -107,8 +108,9 @@ const RegisterView: React.FC<RegisterViewProps> = ({
                     variant="outlined"
                     className={classes.w100}
                     required
+                    error={!!errors.email}
+                    helperText={errors.email?.message}
                   />
-                  {errors.email && errors.email.message}
                 </Box>
 
                 <Box mt="30px">
@@ -122,8 +124,9 @@ const RegisterView: React.FC<RegisterViewProps> = ({
                     type="password"
                     variant="outlined"
                     required
+                    error={!!errors.password}
+                    helperText={errors.password?.message}
                   />
-                  {errors.password && errors.password.message}
                 </Box>
                 <Box mt="30px">
                   <TextField
@@ -139,8 +142,9 @@ const RegisterView: React.FC<RegisterViewProps> = ({
                     type="password"
                     variant="outlined"
                     required
+                    error={!!errors.confirmPassword}
+                    helperText={errors.confirmPassword?.message}
                   />
-                  {errors.confirmPassword && errors.confirmPassword.message}
                 </Box>
 
                 <Box mt="30px" className={clsx(classes.w100, classes.right)}>

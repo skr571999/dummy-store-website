@@ -85,8 +85,9 @@ const LoginView: React.FC<LoginViewProps> = ({
                   variant="outlined"
                   className={classes.w100}
                   required
+                  error={!!errors.email}
+                  helperText={errors.email?.message}
                 />
-                {errors.email && errors.email.message}
               </Box>
 
               <Box mt="30px">
@@ -100,8 +101,9 @@ const LoginView: React.FC<LoginViewProps> = ({
                   type="password"
                   variant="outlined"
                   required
+                  error={!!errors.password}
+                  helperText={errors.password?.message}
                 />
-                {errors.password && errors.password.message}
               </Box>
 
               <Box mt="30px" className={clsx(classes.w100, classes.right)}>
