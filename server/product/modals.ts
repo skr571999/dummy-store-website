@@ -11,6 +11,7 @@ const ProductSchema = new Schema(
     brand: String,
     category: String,
     description: String,
+    images: [Object],
   },
   { timestamps: true }
 );

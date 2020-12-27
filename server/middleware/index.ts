@@ -1,5 +1,7 @@
 import { NextFunction } from "express";
 import { verify } from "jsonwebtoken";
+import multer from "multer";
+import path from "path";
 import { body } from "express-validator";
 
 import { MyRequest, MyResponse } from "../types";
@@ -35,3 +37,17 @@ export const checkAuth = (
     res.status(401).json({ error: "Invalid Token" });
   }
 };
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./uploads");
+  },
+  filename: (req, file, cb) => {
+    cb(
+      null,
+      file.fieldname + "-" + Date.now() + path.extname(file.originalname)
+    );
+  },
+});
+
+export const upload = multer({ storage: storage });

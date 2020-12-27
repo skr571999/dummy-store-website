@@ -28,12 +28,24 @@ export interface LoginResponse {
   message: string;
 }
 
+interface Image {
+  fieldname: string;
+  originalname: string;
+  encoding: string;
+  mimetype: string;
+  destination: string;
+  filename: string;
+  path: string;
+  size: number;
+}
+
 export interface Product {
   _id?: string;
   name: string;
   brand: string;
   price: string;
   category: string;
+  images: Image[];
   description: string;
 }
 

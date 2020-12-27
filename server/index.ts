@@ -28,11 +28,14 @@ const connectDB = async () => {
 connectDB();
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 app.get("/", (req, res) => res.send("Express + TypeScript Server"));
 app.use("/user", UserRoutes);
 app.use("/product", ProductRoutes);
+
+app.use("/uploads", express.static("uploads"));
 
 app.use((req, res) => {
   res.status(404).send({

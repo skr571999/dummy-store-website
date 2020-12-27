@@ -46,7 +46,9 @@ export const GetProductByIdController = async (req: Request, res: Response) => {
 export const AddProductController = async (req: Request, res: Response) => {
   (async () => {
     try {
-      const addedProduct = (await ProductModal.create(req.body)).toJSON();
+      const addedProduct = (
+        await ProductModal.create({ ...req.body, images: req.files })
+      ).toJSON();
       res.send({
         status: "success",
         message: "Successful Added Product",

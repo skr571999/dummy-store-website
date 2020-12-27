@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { upload } from "../middleware";
 
 import {
   AddProductController,
@@ -10,6 +11,6 @@ const router = Router();
 
 router.get("/", ProductListController);
 router.get("/:id", GetProductByIdController);
-router.post("/", AddProductController);
+router.post("/", upload.array("images", 3), AddProductController);
 
 export default router;

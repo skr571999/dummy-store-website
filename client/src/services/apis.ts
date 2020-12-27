@@ -66,11 +66,11 @@ export const getProductById = async (
 };
 
 export const addProduct = async (
-  product: Product
+  product: FormData
 ): Promise<ProductByIdResponse> => {
   try {
-    const _product = product;
-    delete _product._id;
+    // const _product = product;
+    // delete _product._id;
     const response = await axios.post("/product", product);
     return response.data;
   } catch (error) {

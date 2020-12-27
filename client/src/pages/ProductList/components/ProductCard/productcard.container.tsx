@@ -10,6 +10,8 @@ import Typography from "@material-ui/core/Typography";
 import { Button, Grid } from "@material-ui/core";
 
 import productImage from "../../../../assets/images/macbookpro.jpg";
+import { API_BASE_URL } from "../../../../constants";
+import { Product } from "../../../../services/model";
 
 const useStyles = makeStyles({
   root: {
@@ -24,18 +26,10 @@ const useStyles = makeStyles({
 });
 
 interface ProductCardProps {
-  _id?: string;
-  name: string;
-  price: string;
-  brand: string;
+  product: Product;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({
-  _id = "",
-  name,
-  price,
-  brand,
-}) => {
+const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const classes = useStyles();
 
   return (
@@ -45,8 +39,12 @@ const ProductCard: React.FC<ProductCardProps> = ({
           <Grid item xs={4}>
             <CardMedia
               className={classes.media}
-              image={productImage}
-              title="Contemplative Reptile"
+              image={
+                API_BASE_URL +
+                "/" +
+                product.images[0].path.replace("\\", "\\\\")
+              }
+              title={product.name}
             />
           </Grid>
           <Grid item xs={6}>
@@ -57,10 +55,10 @@ const ProductCard: React.FC<ProductCardProps> = ({
                 component="h3"
                 // noWrap
               >
-                {brand} {name}
+                {product.brand} {product.name}
               </Typography>
               <Typography>
-                <b>Price</b> : {price}
+                <b>Price</b> : {product.price}
               </Typography>
             </CardContent>
           </Grid>
@@ -70,7 +68,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
                 size="small"
                 color="secondary"
                 component={RouterLink}
-                to={"/product/" + _id}
+                to={"/product/" + product._id}
               >
                 See Detail
               </Button>

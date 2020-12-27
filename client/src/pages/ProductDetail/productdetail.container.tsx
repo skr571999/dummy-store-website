@@ -21,6 +21,7 @@ import ProductImage from "./../../assets/images/macbookpro.jpg";
 import Specification from "./components/Specification";
 import { getProductById } from "../../services/apis";
 import { Product } from "../../services/model";
+import { API_BASE_URL } from "../../constants";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -106,7 +107,15 @@ const ProductDetail = () => {
                 </Box>
 
                 <Box mt="40px" className={classes.center}>
-                  <img src={ProductImage} alt="Product Pic" width={200} />
+                  <img
+                    src={
+                      API_BASE_URL +
+                      "/" +
+                      product.images[0].path.replace("\\", "\\\\")
+                    }
+                    alt="Product Pic"
+                    width={200}
+                  />
                 </Box>
 
                 <Box className={classes.left} mt="40px">

@@ -81,14 +81,14 @@ const ProductList = () => {
                 {products ? (
                   <Grid container>
                     {products.length > 0 ? (
-                      products?.map((val, index) => (
+                      products?.map((product, index) => (
                         <Grid
                           item
                           xs={12}
                           key={index}
                           className={classes.productCard}
                         >
-                          <ProductCard {...val} />
+                          <ProductCard product={product} />
                         </Grid>
                       ))
                     ) : (
