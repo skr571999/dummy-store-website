@@ -34,6 +34,7 @@ const useStyles = makeStyles((theme: Theme) =>
     list: {
       width: "auto",
       height: "100vh",
+      paddingTop: "5rem",
     },
   })
 );

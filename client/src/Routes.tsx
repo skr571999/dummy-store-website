@@ -1,6 +1,6 @@
 import React, { useGlobal } from "reactn";
 
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route, Redirect, useLocation } from "react-router-dom";
 
 import HomePage from "./pages/Home";
 import LoginPage from "./pages/Login";
@@ -42,6 +42,37 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({
 };
 
 const Routes = () => {
+  const location = useLocation();
+  const currentPath = location.pathname;
+  let docTitle = "";
+  console.log("Path : ", currentPath);
+
+  switch (currentPath.split("/")[1]) {
+    case "":
+      docTitle = "Home";
+      break;
+    case "login":
+      docTitle = "Login";
+      break;
+    case "register":
+      docTitle = "Register";
+      break;
+    case "productlist":
+      docTitle = "Product List";
+      break;
+    case "profile":
+      docTitle = "Profile";
+      break;
+    case "addproduct":
+      docTitle = "Add Product";
+      break;
+    case "product":
+      docTitle = "Product Detail";
+      break;
+  }
+
+  document.title = `${docTitle} | iStore`;
+
   return (
     <Switch>
       <Route path="/" exact component={ProductListPage} />
