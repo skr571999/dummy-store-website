@@ -22,23 +22,23 @@ const Register = () => {
   const password = useRef({});
   password.current = watch("password", "");
 
-  const handleRegister = handleSubmit((data) => {
-    (async () => {
-      try {
-        const response = await registerUser(data);
-        setAlertStatus({
-          message: response?.error || response.message,
-          show: true,
-          type: response?.error || response?.errors ? "error" : "success",
-        });
-        console.log("Response : ", response);
+  const handleRegister = handleSubmit(async (data) => {
+    try {
+      const response = await registerUser(data);
+      setAlertStatus({
+        message: response?.error || response.message,
+        show: true,
+        type: response?.error || response?.errors ? "error" : "success",
+      });
+      if (response.status === "success") {
         setTimeout(() => {
           history.push("/login");
         }, 1000);
-      } catch (error) {
-        console.log("Error : ", error);
       }
-    })();
+      console.log("Response : ", response);
+    } catch (error) {
+      console.log("Error : ", error);
+    }
   });
 
   return (
