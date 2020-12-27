@@ -1,5 +1,6 @@
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
+import { DeepMap, FieldError } from "react-hook-form";
 
 import {
   Box,
@@ -14,7 +15,6 @@ import Alert from "@material-ui/lab/Alert";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 
-import PasswordField from "../../components/PasswordField";
 import { AlertStatusType, LoginValues } from "../../types";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -42,18 +42,16 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface LoginViewProps {
-  loginValues: LoginValues;
-  handleChange: (
-    prop: keyof LoginValues
-  ) => (event: React.ChangeEvent<HTMLInputElement>) => void;
+  register: (refOrValidateRule: any, validateRule?: any) => (ref: any) => void;
   handleLogin: () => void;
+  errors: DeepMap<LoginValues, FieldError>;
   alertStatus: AlertStatusType;
 }
 
 const LoginView: React.FC<LoginViewProps> = ({
-  loginValues,
-  handleChange,
+  errors,
   handleLogin,
+  register,
   alertStatus,
 }) => {
   const classes = useStyles();
@@ -74,21 +72,36 @@ const LoginView: React.FC<LoginViewProps> = ({
 
               <Box mt="30px">
                 <TextField
-                  id="outlined-basic"
-                  label="Email"
+                  id="emailID"
+                  name="email"
+                  inputRef={register({
+                    required: "Required",
+                    pattern: {
+                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                      message: "Invalid email address",
+                    },
+                  })}
+                  label="Email ID"
                   variant="outlined"
                   className={classes.w100}
-                  value={loginValues.email}
-                  onChange={handleChange("email")}
                   required
                 />
+                {errors.email && errors.email.message}
               </Box>
 
               <Box mt="30px">
-                <PasswordField
-                  handleChange={handleChange}
-                  password={loginValues.password}
+                <TextField
+                  fullWidth
+                  inputRef={register({
+                    required: "Required",
+                  })}
+                  label="Password"
+                  name="password"
+                  type="password"
+                  variant="outlined"
+                  required
                 />
+                {errors.password && errors.password.message}
               </Box>
 
               <Box mt="30px" className={clsx(classes.w100, classes.right)}>
@@ -102,6 +115,7 @@ const LoginView: React.FC<LoginViewProps> = ({
                   variant="contained"
                   color="primary"
                   onClick={handleLogin}
+                  type="submit"
                 >
                   Login
                 </Button>

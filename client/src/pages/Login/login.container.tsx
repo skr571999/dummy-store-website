@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 import { loginUser } from "../../services/apis";
 import { AlertStatusType, LoginValues } from "../../types";
@@ -7,9 +8,8 @@ import LoginView from "./login.view";
 
 const Login = () => {
   const history = useHistory();
-  const [loginValues, setLoginValues] = useState<LoginValues>({
-    email: "",
-    password: "",
+  const { handleSubmit, register, errors } = useForm<LoginValues>({
+    defaultValues: {},
   });
 
   const [alertStatus, setAlertStatus] = useState<AlertStatusType>({
@@ -18,39 +18,28 @@ const Login = () => {
     type: undefined,
   });
 
-  const handleChange = (prop: keyof LoginValues) => (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setLoginValues({ ...loginValues, [prop]: event.target.value });
-  };
+  const handleLogin = handleSubmit(async (data) => {
+    try {
+      console.log("Values : ", data);
 
-  const handleLogin = () => {
-    (async () => {
-      try {
-        console.log("Values : ", loginValues);
-
-        const response = await loginUser(loginValues);
-        setAlertStatus({
-          message: response?.error || response.message,
-          show: true,
-          type: response?.error || response?.errors ? "error" : "success",
-        });
-        history.push("/");
-        console.log("Response : ", response);
-      } catch (error) {
-        console.log("Error : ", error);
+      const response = await loginUser(data);
+      setAlertStatus({
+        message: response?.error || response.message,
+        show: true,
+        type: response?.error || response?.errors ? "error" : "success",
+      });
+      if (response.status === "success") {
+        setTimeout(() => {
+          history.push("/");
+        }, 1000);
       }
-    })();
-  };
+      console.log("Response : ", response);
+    } catch (error) {
+      console.log("Error : ", error);
+    }
+  });
 
-  return (
-    <LoginView
-      loginValues={loginValues}
-      handleChange={handleChange}
-      handleLogin={handleLogin}
-      alertStatus={alertStatus}
-    />
-  );
+  return <LoginView {...{ register, errors, handleLogin, alertStatus }} />;
 };
 
 export default Login;

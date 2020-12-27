@@ -15,6 +15,7 @@ export interface RegisterResponse {
   };
   error: string;
   errors?: [];
+  status: string;
   message: string;
 }
 
@@ -25,6 +26,7 @@ export interface LoginResponse {
   };
   error: string;
   errors?: [];
+  status: string;
   message: string;
 }
 
