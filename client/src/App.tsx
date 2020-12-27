@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useDispatch } from "reactn";
 
 import { BrowserRouter as Router } from "react-router-dom";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { Box, CssBaseline, ThemeProvider } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 
+import { setUserDetailReducer } from "./reducers";
 import Routes from "./Routes";
 import NavBar from "./components/NavBar";
 
@@ -45,6 +46,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const App = () => {
   const classes = useStyles();
+
+  const setGlobalUserDetail = useDispatch(setUserDetailReducer);
+  setGlobalUserDetail();
 
   return (
     <ThemeProvider theme={theme}>

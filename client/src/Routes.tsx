@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useGlobal } from "reactn";
 
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 
 import HomePage from "./pages/Home";
 import LoginPage from "./pages/Login";
@@ -10,6 +10,37 @@ import ProductListPage from "./pages/ProductList";
 import ProfilePage from "./pages/Profile";
 import RegisterPage from "./pages/Register";
 
+interface PrivateRouteProps {
+  component: React.FC;
+  exact?: boolean;
+  path: string;
+}
+
+const PrivateRoute: React.FC<PrivateRouteProps> = ({
+  component: Component,
+  ...rest
+}) => {
+  const { isLogin } = useGlobal("userDetail")[0];
+
+  return (
+    <Route
+      {...rest}
+      render={({ location }) =>
+        isLogin ? (
+          <Component />
+        ) : (
+          <Redirect
+            to={{
+              pathname: "/login",
+              state: { from: location },
+            }}
+          />
+        )
+      }
+    />
+  );
+};
+
 const Routes = () => {
   return (
     <Switch>
@@ -18,7 +49,7 @@ const Routes = () => {
       <Route path="/login" exact component={LoginPage} />
       <Route path="/register" exact component={RegisterPage} />
       <Route path="/profile" exact component={ProfilePage} />
-      <Route path="/addproduct" exact component={AddProductPage} />
+      <PrivateRoute path="/addproduct" exact component={AddProductPage} />
       <Route path="/productlist" exact component={ProductListPage} />
       <Route path="/product/:productID" exact component={ProductDetailPage} />
     </Switch>
