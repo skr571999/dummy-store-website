@@ -107,15 +107,21 @@ const ProductDetail = () => {
                 </Box>
 
                 <Box mt="40px" className={classes.center}>
-                  <img
-                    src={
-                      API_BASE_URL +
-                      "/" +
-                      product.images[0].path.replace("\\", "\\\\")
-                    }
-                    alt="Product Pic"
-                    width={200}
-                  />
+                  <Grid container justify="space-around">
+                    {product.images.map((value, index) => (
+                      <Grid item xs key={index}>
+                        <img
+                          src={
+                            API_BASE_URL +
+                            "/" +
+                            value.path.replace("\\", "\\\\")
+                          }
+                          alt={product.name + " " + (index + 1)}
+                          style={{ height: "5rem" }}
+                        />
+                      </Grid>
+                    ))}
+                  </Grid>
                 </Box>
 
                 <Box className={classes.left} mt="40px">
