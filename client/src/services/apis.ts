@@ -8,6 +8,7 @@ import {
   ProductByIdResponse,
   ProductsResponse,
   RegisterResponse,
+  UserResponse,
 } from "./model";
 
 axios.defaults.baseURL = API_BASE_URL;
@@ -36,6 +37,16 @@ export const loginUser = async (
 ): Promise<LoginResponse> => {
   try {
     const response = await axios.post("/user/login", loginData);
+    return response.data;
+  } catch (error) {
+    const errorResponseData = error?.response?.data;
+    return errorResponseData;
+  }
+};
+
+export const getUser = async (): Promise<UserResponse> => {
+  try {
+    const response = await axios.get("/user");
     return response.data;
   } catch (error) {
     const errorResponseData = error?.response?.data;

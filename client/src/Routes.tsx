@@ -48,7 +48,7 @@ const Routes = () => {
       <Route path="/home" exact component={HomePage} />
       <Route path="/login" exact component={LoginPage} />
       <Route path="/register" exact component={RegisterPage} />
-      <Route path="/profile" exact component={ProfilePage} />
+      <PrivateRoute path="/profile" exact component={ProfilePage} />
       <PrivateRoute path="/addproduct" exact component={AddProductPage} />
       <Route path="/productlist" exact component={ProductListPage} />
       <Route path="/product/:productID" exact component={ProductDetailPage} />

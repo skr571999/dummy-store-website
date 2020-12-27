@@ -30,6 +30,16 @@ export interface LoginResponse {
   message: string;
 }
 
+export interface UserResponse {
+  data?: {
+    user: User;
+  };
+  error: string;
+  errors?: [];
+  status: string;
+  message: string;
+}
+
 interface Image {
   fieldname: string;
   originalname: string;

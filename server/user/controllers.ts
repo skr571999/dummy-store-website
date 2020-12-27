@@ -79,18 +79,17 @@ export const LoginController = async (req: Request, res: Response) => {
 };
 
 export const UserDetailController = async (req: MyRequest, res: MyResponse) => {
-  (async () => {
-    try {
-      // const { storeId, } = req.user;
-
-      res.send({
-        data: req.user,
-      });
-      // } else {
-      //     res.status(400).send({ error: "Invalid Login Crendicals" });
-      // }
-    } catch (error) {
-      res.send({ error: "Error Occured" });
-    }
-  })();
+  try {
+    res.send({
+      data: { user: req.user },
+      message: "User Detail",
+      status: "success",
+    });
+  } catch (error) {
+    res.status(400).send({
+      status: "fail",
+      error: error.message,
+      message: "Try Login Again",
+    });
+  }
 };

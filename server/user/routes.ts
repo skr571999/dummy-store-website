@@ -14,8 +14,8 @@ import {
 
 const router = Router();
 
+router.get("/", checkAuth, UserDetailController);
 router.post("/register", RegisterBodyValidator, RegisterController);
 router.post("/login", LoginBodyValidator, LoginController);
-router.get("/detail", checkAuth, UserDetailController);
 
 export default router;
