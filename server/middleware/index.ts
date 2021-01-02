@@ -4,7 +4,7 @@ import multer from "multer";
 import path from "path";
 import { body } from "express-validator";
 
-import { MyRequest, MyResponse } from "../types";
+import { MyRequest, MyResponse, User } from "../types";
 import { JWT_SECRET } from "../constants";
 
 export const RegisterBodyValidator = [
@@ -28,7 +28,7 @@ export const checkAuth = (
     if (authorizationHeader) {
       const token = authorizationHeader.split("Bearer ")[1];
 
-      req["user"] = verify(token, JWT_SECRET);
+      req["user"] = <User>verify(token, JWT_SECRET);
       next();
     } else {
       throw new Error("No Token");

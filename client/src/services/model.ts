@@ -72,5 +72,6 @@ export interface ProductByIdResponse {
   data?: { product: Product };
   error: string;
   errors?: [];
+  status: string;
   message: string;
 }

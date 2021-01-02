@@ -9,7 +9,7 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import { Button, Grid } from "@material-ui/core";
 
-import productImage from "../../../../assets/images/macbookpro.jpg";
+import productImage from "../../../../assets/images/noImageAvailable.png";
 import { API_BASE_URL } from "../../../../constants";
 import { Product } from "../../../../services/model";
 
@@ -31,6 +31,10 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const classes = useStyles();
+  let image = productImage;
+  if (product.images.length > 0) {
+    image = API_BASE_URL + "/" + product.images[0].path.replace("\\", "\\\\");
+  }
 
   return (
     <Card className={classes.root}>
@@ -39,11 +43,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           <Grid item xs={4}>
             <CardMedia
               className={classes.media}
-              image={
-                API_BASE_URL +
-                "/" +
-                product.images[0].path.replace("\\", "\\\\")
-              }
+              image={image}
               title={product.name}
             />
           </Grid>

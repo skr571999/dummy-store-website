@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 
 import { DETAILED_PRODUCT_LIST } from "../data";
+import { MyRequest, MyResponse } from "../types";
 import { Product as ProductModal } from "./modals";
 
 export const ProductListController = async (req: Request, res: Response) => {
@@ -43,11 +44,19 @@ export const GetProductByIdController = async (req: Request, res: Response) => {
   })();
 };
 
-export const AddProductController = async (req: Request, res: Response) => {
+export const AddProductController = async (req: MyRequest, res: MyResponse) => {
   (async () => {
     try {
+      if ((await ProductModal.find({ name: req.body.name }).count()) > 0) {
+        throw new Error("Product with same name already exists.");
+      }
+
       const addedProduct = (
-        await ProductModal.create({ ...req.body, images: req.files })
+        await ProductModal.create({
+          ...req.body,
+          images: req.files,
+          user: req.user?._id,
+        })
       ).toJSON();
       res.send({
         status: "success",

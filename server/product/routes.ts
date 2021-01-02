@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { upload } from "../middleware";
+import { checkAuth, upload } from "../middleware";
 
 import {
   AddProductController,
@@ -11,6 +11,6 @@ const router = Router();
 
 router.get("/", ProductListController);
 router.get("/:id", GetProductByIdController);
-router.post("/", upload.array("images", 3), AddProductController);
+router.post("/", checkAuth, upload.array("images", 3), AddProductController);
 
 export default router;

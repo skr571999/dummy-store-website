@@ -48,7 +48,13 @@ const AddProduct = () => {
         const response = await addProduct(formData);
         console.log("Response : ", response);
 
-        history.push("/productlist");
+        if (response.status === "success") {
+          setTimeout(() => {
+            history.push("/productlist");
+          }, 1000);
+        } else {
+          console.log("In Valid");
+        }
       } catch (error) {
         console.log("Error : ", error);
       }
