@@ -17,7 +17,6 @@ import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 // import { DETAILED_PRODUCT_LIST } from "../../constants";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 
-import ProductImage from "./../../assets/images/macbookpro.jpg";
 import Specification from "./components/Specification";
 import { getProductById } from "../../services/apis";
 import { Product } from "../../services/model";

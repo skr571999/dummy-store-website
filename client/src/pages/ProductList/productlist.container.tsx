@@ -7,7 +7,7 @@ import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import ProductCard from "./components/ProductCard";
 import CategoryFilter from "./components/CategoryFitler";
 import PriceSort from "./components/PriceSort";
-import { getProducts } from "../../services/apis";
+import { getProducts, getUserProducts } from "../../services/apis";
 import { Product } from "../../services/model";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -45,7 +45,13 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const ProductList = () => {
+interface ProductListProps {
+  isUserProducts?: boolean;
+}
+
+const ProductList: React.FC<ProductListProps> = ({
+  isUserProducts = false,
+}) => {
   const classes = useStyles();
   const [products, setProducts] = useState<Product[]>();
   const [priceSort, setPriceSort] = React.useState(true);
@@ -55,7 +61,9 @@ const ProductList = () => {
   useEffect(() => {
     (async () => {
       try {
-        const response = await getProducts();
+        const response = isUserProducts
+          ? await getUserProducts()
+          : await getProducts();
         console.log("Response : ", response);
         if (response.data?.products) {
           const _products = response.data.products;
