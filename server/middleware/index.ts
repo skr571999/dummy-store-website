@@ -34,7 +34,7 @@ export const checkAuth = (
       throw new Error("No Token");
     }
   } catch (error) {
-    res.status(401).json({ error: "Invalid Token" });
+    res.status(401).json({ error: error.message, status: "fail" });
   }
 };
 

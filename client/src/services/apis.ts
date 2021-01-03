@@ -80,9 +80,17 @@ export const addProduct = async (
   product: FormData
 ): Promise<ProductByIdResponse> => {
   try {
-    // const _product = product;
-    // delete _product._id;
     const response = await axios.post("/product", product);
+    return response.data;
+  } catch (error) {
+    const errorResponseData = error?.response?.data;
+    return errorResponseData;
+  }
+};
+
+export const getUserProducts = async (): Promise<ProductsResponse> => {
+  try {
+    const response = await axios.get("/product/myproducts");
     return response.data;
   } catch (error) {
     const errorResponseData = error?.response?.data;

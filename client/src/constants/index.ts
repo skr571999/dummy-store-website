@@ -29,4 +29,9 @@ export const FRONTEND_ENDPOINTS = [
     link: "/profile",
     protect: true,
   },
+  {
+    name: "My Products",
+    link: "/myproducts",
+    protect: true,
+  },
 ];

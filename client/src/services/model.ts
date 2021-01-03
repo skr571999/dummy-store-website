@@ -66,6 +66,7 @@ export interface ProductsResponse {
   error: string;
   errors?: [];
   message: string;
+  status: string;
 }
 
 export interface ProductByIdResponse {

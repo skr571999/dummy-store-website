@@ -72,3 +72,25 @@ export const AddProductController = async (req: MyRequest, res: MyResponse) => {
     }
   })();
 };
+
+export const UserProductListController = async (
+  req: MyRequest,
+  res: MyResponse
+) => {
+  (async () => {
+    try {
+      const products = await ProductModal.find({ user: req.user?._id });
+      res.send({
+        status: "success",
+        message: "Successful",
+        data: { products: products },
+      });
+    } catch (error) {
+      res.status(400).send({
+        status: "fail",
+        error: error.message,
+        message: "Failed to send Products",
+      });
+    }
+  })();
+};
