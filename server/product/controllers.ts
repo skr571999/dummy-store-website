@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 
-import { DETAILED_PRODUCT_LIST } from "../data";
 import { MyRequest, MyResponse } from "../types";
 import { Product as ProductModal } from "./modals";
 

@@ -4,6 +4,7 @@ import cors from "cors";
 
 import UserRoutes from "./user/routes";
 import ProductRoutes from "./product/routes";
+import CartRoutes from "./cart/routes";
 
 const app = express();
 
@@ -34,6 +35,7 @@ app.use(cors());
 app.get("/", (req, res) => res.send("Express + TypeScript Server"));
 app.use("/user", UserRoutes);
 app.use("/product", ProductRoutes);
+app.use("/cart", CartRoutes);
 
 app.use("/uploads", express.static("uploads"));
 
