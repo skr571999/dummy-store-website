@@ -10,6 +10,7 @@ import ProductListPage from "./pages/ProductList";
 import ProfilePage from "./pages/Profile";
 import RegisterPage from "./pages/Register";
 import MyProductsPage from "./pages/MyProducts";
+import CartPage from "./pages/Cart";
 
 interface PrivateRouteProps {
   component: React.FC;
@@ -73,6 +74,9 @@ const Routes = () => {
     case "myproducts":
       docTitle = "My Products";
       break;
+    case "cart":
+      docTitle = "My Cart";
+      break;
   }
 
   document.title = `${docTitle} | iStore`;
@@ -86,6 +90,7 @@ const Routes = () => {
       <PrivateRoute path="/profile" exact component={ProfilePage} />
       <PrivateRoute path="/addproduct" exact component={AddProductPage} />
       <PrivateRoute path="/myproducts" exact component={MyProductsPage} />
+      <PrivateRoute path="/cart" exact component={CartPage} />
       <Route path="/productlist" exact component={ProductListPage} />
       <Route path="/product/:productID" exact component={ProductDetailPage} />
     </Switch>

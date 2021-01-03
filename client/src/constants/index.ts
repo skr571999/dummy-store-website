@@ -34,4 +34,9 @@ export const FRONTEND_ENDPOINTS = [
     link: "/myproducts",
     protect: true,
   },
+  {
+    name: "Cart",
+    link: "/cart",
+    protect: true,
+  },
 ];

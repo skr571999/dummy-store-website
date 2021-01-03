@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 
 import { Link as RouterLink } from "react-router-dom";
 import {
@@ -13,12 +13,10 @@ import {
 } from "@material-ui/core";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 
-// import clsx from "clsx";
-// import { DETAILED_PRODUCT_LIST } from "../../constants";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 
 import Specification from "./components/Specification";
-import { getProductById } from "../../services/apis";
+import { addProductToCart, getProductById } from "../../services/apis";
 import { Product } from "../../services/model";
 import { API_BASE_URL } from "../../constants";
 
@@ -64,12 +62,9 @@ interface ParamTypes {
 
 const ProductDetail = () => {
   const classes = useStyles();
+  const history = useHistory();
   const [product, setProduct] = useState<Product>();
   const { productID } = useParams<ParamTypes>();
-
-  // const productIndex = DETAILED_PRODUCT_LIST.findIndex(
-  //   (val) => val.id === parseInt(productID)
-  // );
 
   useEffect(() => {
     (async () => {
@@ -83,7 +78,16 @@ const ProductDetail = () => {
     })();
   }, []);
 
-  // const product = DETAILED_PRODUCT_LIST[productIndex];
+  const handleAddToCart = async () => {
+    if (!product?._id) return;
+
+    const response = await addProductToCart(product?._id);
+    if (response.status === "success") {
+      history.push("/cart");
+    } else {
+      alert("Error Occurred");
+    }
+  };
 
   return (
     <Grid container justify="center">
@@ -124,16 +128,27 @@ const ProductDetail = () => {
                 </Box>
 
                 <Box className={classes.left} mt="40px">
-                  <Typography variant="h5">
-                    ₹ {product.price}
-                    {/* 1,50,000 */}
-                  </Typography>
+                  <Typography variant="h5">₹ {product.price}</Typography>
                 </Box>
 
                 <Box my={2}>
                   <Grid container>
                     <Grid item xs={12}>
                       <Specification product={product} />
+                    </Grid>
+                  </Grid>
+                </Box>
+
+                <Box my={2}>
+                  <Grid container>
+                    <Grid item xs={12}>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={handleAddToCart}
+                      >
+                        Add to Cart
+                      </Button>
                     </Grid>
                   </Grid>
                 </Box>

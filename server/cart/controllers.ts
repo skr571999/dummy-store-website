@@ -6,11 +6,14 @@ export const CartProductListController = async (
   res: MyResponse
 ) => {
   try {
-    const cartProducts = await CartModal.find({});
+    const cartProducts = await CartModal.findOne({ user: req.user?._id })
+      .select("products")
+      .populate("products.product");
+
     res.send({
       status: "success",
       message: "Successful",
-      data: { cart: cartProducts },
+      data: { cart: cartProducts || { products: [] }, user: req.user },
     });
   } catch (error) {
     res.status(400).send({
@@ -78,7 +81,7 @@ export const AddProductToCartController = async (
   }
 };
 
-export const RemoveProductToCartController = async (
+export const RemoveProductFromCartController = async (
   req: MyRequest,
   res: MyResponse
 ) => {
@@ -117,6 +120,26 @@ export const RemoveProductToCartController = async (
       status: "success",
       message: message,
       data: { cart: cartProduct },
+    });
+  } catch (error) {
+    res.status(400).send({
+      status: "fail",
+      error: error.message,
+      message: "Failed to send Cart Products",
+    });
+  }
+};
+
+export const EmptyCartController = async (req: MyRequest, res: MyResponse) => {
+  try {
+    const user = req.user?._id;
+
+    const response = await CartModal.deleteOne({ user });
+
+    res.send({
+      status: "success",
+      message: "Cart Emptied",
+      data: { response },
     });
   } catch (error) {
     res.status(400).send({

@@ -76,3 +76,29 @@ export interface ProductByIdResponse {
   status: string;
   message: string;
 }
+
+export interface ResponseType {
+  data?: any;
+  error: string;
+  errors?: [];
+  message: string;
+  status: string;
+}
+
+export interface CartProduct {
+  product: Product;
+  quantity: number;
+}
+
+interface CartType {
+  products: CartProduct[];
+  user: User;
+}
+
+export interface CartProductResponse {
+  data?: { cart: CartType | null };
+  error: string;
+  errors?: [];
+  message: string;
+  status: string;
+}

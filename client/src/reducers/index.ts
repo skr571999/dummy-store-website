@@ -34,3 +34,10 @@ export const setUserDetailReducer = (global: any, dispatch: any) => {
     },
   };
 };
+
+// export const setCartDetail = (global: any, dispatch: any) => {
+//   console.log("Global : ", global);
+//   console.log("Dispatch : ", dispatch);
+
+//   return global;
+// };
