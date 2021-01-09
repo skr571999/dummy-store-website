@@ -1,6 +1,6 @@
 # iStore
 
-A MERN app where user can look through the products that are available and admin can add the new products.
+A MERN app where user can look through the products that are available and can add the new products.
 
 ## Technologies and Tools
 
@@ -38,43 +38,12 @@ npm install
 ```sh
 # To Start the Frontend Server
 cd client && start npm start
-cd ..
 
 # To Start MongoDb Server
 start mongod
 
 # To Start the Backend Server
 cd server && start npm start
-cd ..
 ```
-
-## Development Info
-
-### Phase - I
-
-- Customer Pages
-
-  - Product List
-    - Fitler
-    - Products
-  - Product Detail
-  - Home Page
-    - Carousel
-    - Product Seprated by Category
-
-- Admin(Seller) Pages
-  - Add New Product
-
-### Phase - II
-
-- Customer Pages
-
-  - Login
-  - Register
-  - Profile
-    - Profile Edit
-
-- Admin(Seller) Pages
-  - UserList
 
 <!-- ## Preview Screens -->
