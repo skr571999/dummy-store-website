@@ -1,49 +1,27 @@
-# iStore
+# Dummy Store Server
 
-A MERN app where user can look through the products that are available and can add the new products.
+Backend for `Dummy-Store` built using `ExpressJS`, `MongoDB`.
 
 ## Technologies and Tools
 
-- TextEditor - Visual Studio Code
+- Framework - `ExpressJS`
+- Language - `Typescript`
+- DataBase - `MongoDB`
 - VSCode Extensions
   - [Prettier - Code formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
-  - [Material Icon Theme](https://marketplace.visualstudio.com/items?itemName=PKief.material-icon-theme)
-  - [Atom One Dark Theme](https://marketplace.visualstudio.com/items?itemName=akamud.vscode-theme-onedark)
-  - [ES7 React/Redux/GraphQL/React-Native snippets](https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snippets)
-- Development OS - Window 10
-- Frontend - React
-  - Language - Typescript
-  - Package manager - npm
-  - Design System - Material UI
-- Backend - NodeJS(ExpressJS)
-  - Language - Typescript
-  - DataBase - MongoDB
 
-## Usage
-
-- Cloning and Installing(For first time)
+## Running Locally
 
 ```sh
-git clone https://github.com/skr571999/iStore.git
+# - Cloning and Installing(For first time)
+git clone REPO_ADDRESS
 
-cd client
+cd REPO_NAME
 npm install
 
-cd server
-npm install
-```
-
-- Starting the development Server
-
-```sh
-# To Start the Frontend Server
-cd client && start npm start
-
-# To Start MongoDb Server
+# - Starting MongoDB Server
 start mongod
 
-# To Start the Backend Server
-cd server && start npm start
+# - Starting the development Server
+npm start
 ```
-
-<!-- ## Preview Screens -->
