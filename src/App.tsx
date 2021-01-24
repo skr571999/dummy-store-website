@@ -47,8 +47,7 @@ const useStyles = makeStyles((theme: Theme) =>
 const App = () => {
   const classes = useStyles();
 
-  const setGlobalUserDetail = useDispatch(setUserDetailReducer);
-  setGlobalUserDetail();
+  useDispatch(setUserDetailReducer)();
 
   return (
     <ThemeProvider theme={theme}>

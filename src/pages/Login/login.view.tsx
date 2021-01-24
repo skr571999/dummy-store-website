@@ -16,6 +16,7 @@ import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 
 import { AlertStatusType, LoginValues } from "../../types";
+import { APP_NAME } from "../../constants";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -63,7 +64,7 @@ const LoginView: React.FC<LoginViewProps> = ({
           <Grid container justify="center">
             <Grid item xs={10}>
               <Box className={classes.center} mt="40px" mb="20px">
-                <Typography variant="h4">Login to iStore</Typography>
+                <Typography variant="h4">Login to {APP_NAME}</Typography>
               </Box>
 
               {alertStatus.show && (

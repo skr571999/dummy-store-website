@@ -79,7 +79,7 @@ const Routes = () => {
       break;
   }
 
-  document.title = `${docTitle} | iStore`;
+  document.title = `${docTitle} | DummyStore`;
 
   return (
     <Switch>

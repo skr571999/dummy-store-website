@@ -1,4 +1,4 @@
-import React, { useDispatch, useGlobal } from "reactn";
+import React, { useDispatch, useGlobal, useState } from "reactn";
 
 import { Link as RouterLink, useHistory } from "react-router-dom";
 import {
@@ -18,7 +18,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 
 import { setUserDetailReducer } from "../../reducers";
-import { FRONTEND_ENDPOINTS } from "../../constants";
+import { APP_NAME, FRONTEND_ENDPOINTS } from "../../constants";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -44,7 +44,7 @@ const NavBar = () => {
   const history = useHistory();
   const { isLogin } = useGlobal("userDetail")[0];
   const setGlobalUserDetail = useDispatch(setUserDetailReducer);
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleDrawer = () => {
     setOpen(!open);
@@ -72,7 +72,7 @@ const NavBar = () => {
             </IconButton>
           </Hidden>
           <Typography variant="h6" noWrap className={classes.title}>
-            iStore
+            {APP_NAME}
           </Typography>
           <Hidden xsDown>
             {FRONTEND_ENDPOINTS.filter(

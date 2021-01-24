@@ -1,4 +1,4 @@
-export const API_BASE_URL = "http://localhost:8000";
+export const APP_NAME = "DummyStore";
 
 export const FRONTEND_ENDPOINTS = [
   {
@@ -40,3 +40,14 @@ export const FRONTEND_ENDPOINTS = [
     protect: true,
   },
 ];
+
+const prod = {
+  API_BASE_URL: "http://localhost:8000",
+};
+
+const dev = {
+  API_BASE_URL: "http://localhost:8000",
+};
+
+export const API_BASE_URL =
+  process.env.NODE_ENV === "development" ? dev.API_BASE_URL : prod.API_BASE_URL;

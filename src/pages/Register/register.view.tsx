@@ -18,6 +18,7 @@ import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 
 import PasswordField from "../../components/PasswordField";
 import { AlertStatusType, RegisterValues } from "../../types";
+import { APP_NAME } from "../../constants";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -68,7 +69,7 @@ const RegisterView: React.FC<RegisterViewProps> = ({
             <Grid container justify="center">
               <Grid item xs={10}>
                 <Box className={classes.center} mt="40px" mb="20px">
-                  <Typography variant="h4">Register to iStore</Typography>
+                  <Typography variant="h4">Register to {APP_NAME}</Typography>
                 </Box>
 
                 {alertStatus.show && (
