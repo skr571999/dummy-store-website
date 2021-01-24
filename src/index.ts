@@ -5,23 +5,25 @@ import cors from "cors";
 import UserRoutes from "./apps/user/routes";
 import ProductRoutes from "./apps/product/routes";
 import CartRoutes from "./apps/cart/routes";
+import dotenv from "dotenv";
+import { MONGODB_URL } from "./constants";
 
+dotenv.config();
 const app = express();
 
 const PORT = process.env.PORT || 8000;
-const DB_URL = process.env.DB_URL || "mongodb://localhost:27017/test";
 
 const connectDB = async () => {
   try {
-    const con = await mongoose.connect(DB_URL, {
+    const con = await mongoose.connect(MONGODB_URL, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useFindAndModify: false,
       // serverSelectionTimeoutMS: 2000,
     });
-    console.log(`Connected to '${con.connection.name}' DB`);
+    console.log(`⚡️[db] : Connected to '${con.connection.name}' DB`);
   } catch (err) {
-    console.log("DB Error : ", err.message);
+    console.log("DB Error : ", err);
     process.exit();
   }
 };
@@ -46,5 +48,6 @@ app.use((req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`⚡️[server]: Server is running at https://localhost:${PORT}`);
+  console.log(`⚡️[server]: NODE_ENV ${process.env.NODE_ENV}`);
+  console.log(`⚡️[server]: Server is running at http://localhost:${PORT}`);
 });
