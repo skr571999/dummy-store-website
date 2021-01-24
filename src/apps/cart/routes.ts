@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { checkAuth } from "../middleware";
+import { checkAuth } from "../../middleware";
 
 import {
   AddProductToCartController,

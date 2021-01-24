@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { checkAuth, upload } from "../middleware";
+import { checkAuth, upload } from "../../middleware";
 
 import {
   AddProductController,

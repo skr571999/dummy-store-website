@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 
-import { EMAIL_REGEX } from "../constants";
+import { EMAIL_REGEX } from "../../constants";
 
 const UserSchema = new Schema(
   {

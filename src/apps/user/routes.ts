@@ -4,7 +4,7 @@ import {
   checkAuth,
   LoginBodyValidator,
   RegisterBodyValidator,
-} from "../middleware";
+} from "../../middleware";
 
 import {
   LoginController,

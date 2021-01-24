@@ -2,9 +2,9 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 
-import UserRoutes from "./user/routes";
-import ProductRoutes from "./product/routes";
-import CartRoutes from "./cart/routes";
+import UserRoutes from "./apps/user/routes";
+import ProductRoutes from "./apps/product/routes";
+import CartRoutes from "./apps/cart/routes";
 
 const app = express();
 

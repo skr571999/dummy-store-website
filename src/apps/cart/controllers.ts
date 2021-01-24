@@ -1,4 +1,4 @@
-import { MyRequest, MyResponse } from "../types";
+import { MyRequest, MyResponse } from "../../types";
 import { Cart as CartModal } from "./modals";
 
 export const CartProductListController = async (

@@ -3,8 +3,8 @@ import { sign } from "jsonwebtoken";
 import { validationResult } from "express-validator";
 
 import { User as UserModal } from "./modals";
-import { MyRequest, MyResponse } from "../types";
-import { JWT_SECRET } from "../constants";
+import { MyRequest, MyResponse } from "../../types";
+import { JWT_SECRET } from "../../constants";
 
 export const RegisterController = async (req: Request, res: Response) => {
   try {

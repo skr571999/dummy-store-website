@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 
-import { MyRequest, MyResponse } from "../types";
+import { MyRequest, MyResponse } from "../../types";
 import { Product as ProductModal } from "./modals";
 
 export const ProductListController = async (req: Request, res: Response) => {
