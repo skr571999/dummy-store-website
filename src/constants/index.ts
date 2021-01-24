@@ -42,7 +42,7 @@ export const FRONTEND_ENDPOINTS = [
 ];
 
 const prod = {
-  API_BASE_URL: "http://localhost:8000",
+  API_BASE_URL: "https://api-dummy-store.herokuapp.com",
 };
 
 const dev = {
