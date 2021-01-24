@@ -23,7 +23,7 @@ const connectDB = async () => {
     });
     console.log(`⚡️[db] : Connected to '${con.connection.name}' DB`);
   } catch (err) {
-    console.log("DB Error : ", err);
+    console.log("DB Error : ", err.message);
     process.exit();
   }
 };
@@ -48,6 +48,6 @@ app.use((req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`⚡️[server]: NODE_ENV ${process.env.NODE_ENV}`);
-  console.log(`⚡️[server]: Server is running at http://localhost:${PORT}`);
+  console.log(`⚡️[NODE_ENV]: ${process.env.NODE_ENV}`);
+  console.log(`⚡️[server]: Running at ${PORT}`);
 });

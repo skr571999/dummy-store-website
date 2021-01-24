@@ -7,7 +7,6 @@ let db_url = "mongodb://localhost:27017/test";
 if (process.env.NODE_ENV === "production") {
   const db_name = process.env.DB_NAME;
   const db_pass = process.env.DB_PASS;
-  console.log("NAMe :", db_name);
 
   db_url = `mongodb+srv://admin:${db_pass}@cluster0.9f9wl.mongodb.net/${db_name}?retryWrites=true&w=majority`;
 }
