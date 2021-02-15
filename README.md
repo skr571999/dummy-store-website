@@ -10,7 +10,7 @@ Backend for `Dummy-Store` built using `ExpressJS`, `MongoDB`.
 - VSCode Extensions
   - [Prettier - Code formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
 
-## Running Locally
+## Setting Up Locally
 
 ```sh
 # - Cloning and Installing(For first time)
@@ -25,3 +25,7 @@ start mongod
 # - Starting the development Server
 npm start
 ```
+
+## TODO
+
+- [ ] Deploy server to AWS
