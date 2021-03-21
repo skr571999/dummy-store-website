@@ -25,7 +25,3 @@ start mongod
 # - Starting the development Server
 npm start
 ```
-
-## TODO
-
-- [ ] Deploy server to AWS
