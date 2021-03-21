@@ -23,13 +23,3 @@ npm install
 # - Starting the development Server
 npm start
 ```
-
-## TODO
-
-- [ ] Add favorite Product Section
-- [ ] Fix Add to cart without login
-- [ ] Move Header links to Down
-- [ ] Update Figma Design
-- [ ] Add Checkout
-- [ ] Add Product Review
-- [ ] Add Rating

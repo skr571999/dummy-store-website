@@ -14,13 +14,7 @@ const theme = createMuiTheme({
     primary: {
       main: "#000",
     },
-    // secondary: {
-    //     main: "#F2994A",
-    // },
   },
-  // typography: {
-  //     fontFamily: ["Montserrat", "sans-serif"].join(","),
-  // },
 });
 
 const useStyles = makeStyles((theme: Theme) =>
