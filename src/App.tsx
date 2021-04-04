@@ -1,9 +1,8 @@
 import React, { useDispatch } from "reactn";
 
 import { BrowserRouter as Router } from "react-router-dom";
-import { createMuiTheme } from "@material-ui/core/styles";
 import { Box, CssBaseline, ThemeProvider } from "@material-ui/core";
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import { createStyles, makeStyles, Theme, createMuiTheme } from "@material-ui/core/styles";
 
 import { setUserDetailReducer } from "./reducers";
 import Routes from "./Routes";
@@ -31,9 +30,6 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: theme.spacing(3),
       backgroundColor: "#F8F8F8",
       width: "100%",
-    },
-    list: {
-      width: "auto",
     },
   })
 );

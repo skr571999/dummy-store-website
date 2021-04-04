@@ -1,15 +1,6 @@
 # Dummy Store Website
 
-This is a E-Commerce app built using `React` and `Material-UI`.
-
-## Technologies and Tools
-
-- Language - `Typescript`
-- Package manager - `npm`
-- Design System - `Material UI`
-- `VSCode` Extensions
-  - [Prettier - Code formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
-  - [ES7 React/Redux/GraphQL/React-Native snippets](https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snippets)
+This is a E-Commerce app built using `ReactJS` and `Material-UI`.
 
 ## Setting Up Locally
 

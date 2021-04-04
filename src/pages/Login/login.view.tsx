@@ -59,7 +59,7 @@ const LoginView: React.FC<LoginViewProps> = ({
 
   return (
     <Grid container justify="center">
-      <Grid item xs={12} sm={10} md={8} lg={6}>
+      <Grid item xs={12} sm={8} md={6} lg={4}>
         <Paper>
           <Grid container justify="center">
             <Grid item xs={10}>
@@ -113,7 +113,7 @@ const LoginView: React.FC<LoginViewProps> = ({
                 </Link>
               </Box>
 
-              <Box mt="30px" className={clsx(classes.w100, classes.center)}>
+              <Box my="30px" className={clsx(classes.w100, classes.center)}>
                 <Button
                   variant="contained"
                   color="primary"
@@ -124,11 +124,11 @@ const LoginView: React.FC<LoginViewProps> = ({
                 </Button>
               </Box>
 
-              <Box my="30px" className={clsx(classes.w100, classes.left)}>
+              {/* <Box my="30px" className={clsx(classes.w100, classes.left)}>
                 <Link component={RouterLink} to="/register">
                   Forgot Password?
                 </Link>
-              </Box>
+              </Box> */}
             </Grid>
           </Grid>
         </Paper>

@@ -18,38 +18,11 @@ interface PrivateRouteProps {
   path: string;
 }
 
-const PrivateRoute: React.FC<PrivateRouteProps> = ({
-  component: Component,
-  ...rest
-}) => {
-  const { isLogin } = useGlobal("userDetail")[0];
-
-  return (
-    <Route
-      {...rest}
-      render={({ location }) =>
-        isLogin ? (
-          <Component />
-        ) : (
-          <Redirect
-            to={{
-              pathname: "/login",
-              state: { from: location },
-            }}
-          />
-        )
-      }
-    />
-  );
-};
-
-const Routes = () => {
-  const location = useLocation();
-  const currentPath = location.pathname;
+const updateTitle = (_currentPath: string) => {
   let docTitle = "";
-  console.log("Path : ", currentPath);
+  console.log("Path : ", _currentPath);
 
-  switch (currentPath.split("/")[1]) {
+  switch (_currentPath.split("/")[1]) {
     case "":
       docTitle = "Home";
       break;
@@ -80,6 +53,36 @@ const Routes = () => {
   }
 
   document.title = `${docTitle} | DummyStore`;
+};
+
+const PrivateRoute: React.FC<PrivateRouteProps> = ({
+  component: Component,
+  ...rest
+}) => {
+  const { isLogin } = useGlobal("userDetail")[0];
+
+  return (
+    <Route
+      {...rest}
+      render={({ location }) =>
+        isLogin ? (
+          <Component />
+        ) : (
+          <Redirect
+            to={{
+              pathname: "/login",
+              state: { from: location },
+            }}
+          />
+        )
+      }
+    />
+  );
+};
+
+const Routes = () => {
+  const { pathname } = useLocation();
+  updateTitle(pathname);
 
   return (
     <Switch>
