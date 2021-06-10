@@ -48,15 +48,7 @@
   "description": "This is a E-Commerce app built using `React` and `Material-UI`.",
   "main": "index.js",
   "devDependencies": {},
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/skr571999/dummy-store-website.git"
-  },
   "keywords": [],
   "author": "Sachin Kumar Rajput <skr571999@gmail.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/skr571999/dummy-store-website/issues"
-  },
-  "homepage": "."
+  "license": "MIT"
 }
